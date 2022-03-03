@@ -27,6 +27,12 @@ export class ParisProductParser implements ProductParser {
                 productSeller = productSellerRegex[1];
             }
 
+            let imageUrl = undefined;
+            const imageUrlRegex = str.match(/image-primary[\w\W]+?data-src="([\w\W]+?)"/);
+            if (null !== imageUrlRegex) {
+                imageUrl = imageUrlRegex[1];
+            }
+
             let itemUrl = undefined;
             const itemUrlRegex1 = str.match(/itemprop="url"[\w\W]+content="(.*)?">/);
             if (null !== itemUrlRegex1) {
@@ -62,7 +68,7 @@ export class ParisProductParser implements ProductParser {
                     retailId: Retail.Paris,
                     productId: json.id,
                     name: json.name.trim(),
-                    imageUrl: undefined,
+                    imageUrl: imageUrl,
                     brand: json.brand.trim(),
                     currentPrice: currentPrice,
                     normalPrice: normalPrice,
@@ -71,7 +77,8 @@ export class ParisProductParser implements ProductParser {
                     discountPercentage: discountPercentage,
                     productUrl: itemUrl,
                     valid: (productSeller === "Paris.cl"),
-                    department: this.department
+                    department: this.department,
+                    timestamp: Date.now()
                 }
             );
         });

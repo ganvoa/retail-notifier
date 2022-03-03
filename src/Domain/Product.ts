@@ -14,5 +14,6 @@ export type Product = {
     discountPercentage: number,
     productUrl?: string,
     valid: boolean,
-    department: Department
+    department: Department,
+    timestamp: number
 }

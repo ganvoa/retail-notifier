@@ -4,8 +4,8 @@ import { ProductParser } from "../Domain/ProductParser";
 import { Retail } from "../Domain/Retail";
 
 export class AbcdinProductParser implements ProductParser {
-    
-    constructor(private department: Department) {}
+
+    constructor(private department: Department) { }
 
     getAll(content: string): Product[] {
         const products: Product[] = [];
@@ -16,15 +16,16 @@ export class AbcdinProductParser implements ProductParser {
         }
 
         itemArray.forEach(str => {
-            const itemData = str.match(/data-id="(\d+?)"[\w\W]+?href="([\w\W]+?)"[\w\W]+?<span class="product-item-brand">([\w\W]+?)<\/span>[\w\W]+?product-item-name"><a[\w\W]+?href="[\w\W]+?">([\w\W]+?)<\/a>/);
+            const itemData = str.match(/data-id="(\d+?)"[\w\W]+?href="([\w\W]+?)"[\w\W]+?product-image-photo[\w\W]+?src="([\w\W]+?)"[\w\W]+?product-item-brand">([\w\W]+?)<[\w\W]+?product-item-name"><a[\w\W]+?href="[\w\W]+?">([\w\W]+?)<\/a>/);
             if (null == itemData) {
                 return;
             }
 
             const productId = itemData[1];
             const productUrl = itemData[2];
-            const brand = itemData[3];
-            const name = itemData[4];
+            const imageUrl = itemData[3];
+            const brand = itemData[4];
+            const name = itemData[5];
 
             const internetPriceMatch = str.match(/internet-price"[\w\W]+?data-price-amount="(\d+?)"/);
             let currentPrice = 0;
@@ -57,7 +58,7 @@ export class AbcdinProductParser implements ProductParser {
                     retailId: Retail.Abcdin,
                     productId: productId,
                     name: name.trim(),
-                    imageUrl: undefined,
+                    imageUrl: imageUrl,
                     brand: brand.trim(),
                     currentPrice: currentPrice,
                     normalPrice: normalPrice,
@@ -66,7 +67,8 @@ export class AbcdinProductParser implements ProductParser {
                     discountPercentage: discountPercentage,
                     productUrl: productUrl,
                     department: this.department,
-                    valid: true
+                    valid: true,
+                    timestamp: Date.now()
                 }
             );
         });

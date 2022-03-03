@@ -29,13 +29,11 @@ export class GetProductsByDepartment {
                 currentProductsFound = products.length;
                 totalProductsFound += products.length;
                 console.log(`products found on this page: ${currentProductsFound}`);
-                products.forEach(async product => {
+
+                for (const product of products) {
                     if (product.valid && product.discountPercentage >= this.discount) {
                         try {
                             const productAlreadyExists = await this.repository.find(product.productId, product.retailId, product.minPrice);
-
-                            console.log(productAlreadyExists);
-
                             if (productAlreadyExists === undefined) {
                                 if (this.notifier) {
                                     await this.notifier.notify(product);
@@ -47,7 +45,7 @@ export class GetProductsByDepartment {
                             console.error(e);
                         }
                     }
-                });
+                }
             } while (this.paginator.next() && currentProductsFound > 0 && this.paginator.getNumberOfPages() >= this.paginator.getPage());
             console.log(`total products found: ${totalProductsFound}`);
         } catch (e) {

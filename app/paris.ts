@@ -5,8 +5,8 @@ import { FetchHttpClient } from '../src/Infrastructure/FecthHttpClient';
 import { ParisPageFetcher } from '../src/Infrastructure/ParisPageFetcher';
 import { ParisProductParser } from '../src/Infrastructure/ParisProductParser';
 import { TelegramNotifier } from '../src/Infrastructure/TelegramNotifier';
-import config from './config';
 import { ElasticsearchProductRepository } from '../src/Infrastructure/ElasticsearchProductRepository';
+import config from './config';
 
 const httpClient = new FetchHttpClient();
 const repository = new ElasticsearchProductRepository(config.ELASTICSEARCH_INDEX, config.ELASTICSEARCH_HOST);
