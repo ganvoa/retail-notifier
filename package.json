@@ -1,0 +1,18 @@
+{
+  "name": "retail-scrapping",
+  "version": "1.0.0",
+  "main": "build/app/main.js",
+  "license": "MIT",
+  "scripts": {
+    "watch": "npx tsc --watch",
+    "start": "node build/app/main.js"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "axios": "^0.26.0",
+    "twitter-api-v2": "^1.11.0"
+  }
+}
