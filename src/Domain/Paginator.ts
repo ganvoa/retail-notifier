@@ -18,4 +18,12 @@ export class Paginator {
         return this.offset;
     }
 
+    getPage(): number {
+        return Math.floor(this.offset/this.limit) + 1;
+    }
+
+    getNumberOfPages(): number {
+        return Math.ceil(this.total/this.limit);
+    }
+
 }

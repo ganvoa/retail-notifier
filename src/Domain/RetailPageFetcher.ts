@@ -1,3 +1,3 @@
 export interface RetailPageFetcher {
-    getPage(limit: number, offset: number): Promise<string>;
+    getPage(limit: number, offset: number, page: number): Promise<string>;
 }

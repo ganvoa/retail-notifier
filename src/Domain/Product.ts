@@ -1,4 +1,7 @@
+import { Apartment } from "./Apartment";
+
 export type Product = {
+    retailId: string,
     productId: string,
     name: string,
     imageUrl?: string,
@@ -8,5 +11,7 @@ export type Product = {
     exclusivePrice: number,
     minPrice: number,
     discountPercentage: number,
-    productUrl?: string
+    productUrl?: string,
+    valid: boolean,
+    apartment: Apartment
 }

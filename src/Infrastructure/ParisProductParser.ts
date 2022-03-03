@@ -1,8 +1,12 @@
-import { json } from "stream/consumers";
+import { Apartment } from "../Domain/Apartment";
 import { Product } from "../Domain/Product";
 import { ProductParser } from "../Domain/ProductParser";
+import { Retail } from "../Domain/Retail";
 
 export class ParisProductParser implements ProductParser {
+
+    constructor(private apartment: Apartment) { }
+
     getAll(content: string): Product[] {
         const products: Product[] = [];
 
@@ -21,10 +25,6 @@ export class ParisProductParser implements ProductParser {
             const productSellerRegex = str.match(/id="productSeller" value="([\w\W]+?)"/);
             if (null !== productSellerRegex) {
                 productSeller = productSellerRegex[1];
-            }
-
-            if (productSeller !== "Paris.cl") {
-                return;
             }
 
             let itemUrl = undefined;
@@ -59,6 +59,7 @@ export class ParisProductParser implements ProductParser {
             const discountPercentage = Math.round(100 - minPrice * 100 / normalPrice);
             products.push(
                 {
+                    retailId: Retail.Paris,
                     productId: json.id,
                     name: json.name.trim(),
                     imageUrl: undefined,
@@ -68,7 +69,9 @@ export class ParisProductParser implements ProductParser {
                     exclusivePrice: exclusivePrice,
                     minPrice: minPrice,
                     discountPercentage: discountPercentage,
-                    productUrl: itemUrl
+                    productUrl: itemUrl,
+                    valid: (productSeller === "Paris.cl"),
+                    apartment: this.apartment
                 }
             );
         });
