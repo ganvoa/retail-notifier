@@ -1,4 +1,4 @@
-export enum Apartment {
+export enum Department {
     Tecnologia = 'tecnologia',
     Muebles = 'muebles',
     Electro = 'electro',

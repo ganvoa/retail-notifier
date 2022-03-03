@@ -1,11 +1,11 @@
-import { Apartment } from "../Domain/Apartment";
+import { Department } from "../Domain/Department";
 import { Product } from "../Domain/Product";
 import { ProductParser } from "../Domain/ProductParser";
 import { Retail } from "../Domain/Retail";
 
 export class AbcdinProductParser implements ProductParser {
     
-    constructor(private apartment: Apartment) {}
+    constructor(private department: Department) {}
 
     getAll(content: string): Product[] {
         const products: Product[] = [];
@@ -65,7 +65,7 @@ export class AbcdinProductParser implements ProductParser {
                     minPrice: minPrice,
                     discountPercentage: discountPercentage,
                     productUrl: productUrl,
-                    apartment: this.apartment,
+                    department: this.department,
                     valid: true
                 }
             );

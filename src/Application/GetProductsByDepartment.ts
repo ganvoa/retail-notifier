@@ -1,14 +1,16 @@
 import { Notifier } from "../Domain/Notifier";
 import { Paginator } from "../Domain/Paginator";
 import { ProductParser } from "../Domain/ProductParser";
+import { PorductRepository } from "../Domain/ProductRepository";
 import { RetailPageFetcher } from "../Domain/RetailPageFetcher";
 
-export class GetProductsByApartment {
+export class GetProductsByDepartment {
     constructor(
         private discount: number,
         private pageFetcher: RetailPageFetcher,
         private productParser: ProductParser,
         private paginator: Paginator,
+        private repository: PorductRepository,
         private notifier?: Notifier
     ) { }
 
@@ -30,12 +32,19 @@ export class GetProductsByApartment {
                 products.forEach(async product => {
                     if (product.valid && product.discountPercentage >= this.discount) {
                         try {
-                            if (this.notifier) {
-                                await this.notifier.notify(product);
+                            const productAlreadyExists = await this.repository.find(product.productId, product.retailId, product.minPrice);
+
+                            console.log(productAlreadyExists);
+
+                            if (productAlreadyExists === undefined) {
+                                if (this.notifier) {
+                                    await this.notifier.notify(product);
+                                }
+                                console.log(`${product.retailId};${product.department};${product.productId};${product.minPrice};${product.discountPercentage};${product.productUrl}`);
+                                await this.repository.save(product);
                             }
-                            console.log(`${product.retailId};${product.apartment};${product.productId};${product.minPrice};${product.discountPercentage};${product.productUrl}`)
-                        } catch (e: any) {
-                            console.error(e.message);
+                        } catch (e) {
+                            console.error(e);
                         }
                     }
                 });

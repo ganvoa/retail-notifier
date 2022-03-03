@@ -1,7 +1,8 @@
-import { Apartment } from "./Apartment";
+import { Department } from "./Department";
+import { Retail } from "./Retail";
 
 export type Product = {
-    retailId: string,
+    retailId: Retail,
     productId: string,
     name: string,
     imageUrl?: string,
@@ -13,5 +14,5 @@ export type Product = {
     discountPercentage: number,
     productUrl?: string,
     valid: boolean,
-    apartment: Apartment
+    department: Department
 }
