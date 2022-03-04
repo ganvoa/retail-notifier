@@ -28,7 +28,7 @@ export class GetProductsByDepartment {
                 const products = this.productParser.getAll(page);
                 currentProductsFound = products.length;
                 totalProductsFound += products.length;
-                console.log(`products found on this page: ${currentProductsFound}`);
+                console.log(`page ${this.paginator.getPage()}: ${currentProductsFound} products`);
 
                 for (const product of products) {
                     if (product.valid && product.discountPercentage >= this.discount) {

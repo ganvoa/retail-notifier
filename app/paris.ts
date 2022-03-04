@@ -11,9 +11,8 @@ import config from './config';
 const httpClient = new FetchHttpClient();
 const repository = new ElasticsearchProductRepository(config.ELASTICSEARCH_INDEX, config.ELASTICSEARCH_HOST);
 
-let notify = false;
 let notifier = undefined;
-if (notify) {
+if (config.SHOULD_NOTIFY) {
     notifier = new TelegramNotifier(config.TELEGRAM_BOT_TOKEN, config.TELEGRAM_CHANNEL_ID);
 }
 

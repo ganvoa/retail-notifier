@@ -7,6 +7,7 @@ interface Config {
     ELASTICSEARCH_INDEX: string;
     ELASTICSEARCH_HOST: string;
     APP_DISCOUNT: number;
+    SHOULD_NOTIFY: boolean;
 }
 
 const getConfig = (): Config => {
@@ -16,6 +17,7 @@ const getConfig = (): Config => {
         ELASTICSEARCH_INDEX: process.env.ELASTICSEARCH_INDEX || "retail",
         ELASTICSEARCH_HOST: process.env.ELASTICSEARCH_HOST || "http://localhost:9200",
         APP_DISCOUNT: process.env.APP_DISCOUNT ? parseInt(process.env.APP_DISCOUNT) : 50,
+        SHOULD_NOTIFY: process.env.SHOULD_NOTIFY ? process.env.SHOULD_NOTIFY == 'true' : false,
     };
 };
 

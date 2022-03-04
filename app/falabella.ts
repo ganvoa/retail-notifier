@@ -1,9 +1,9 @@
 import { GetProductsByDepartment } from '../src/Application/GetProductsByDepartment';
-import { DepartmentAbcdin } from '../src/Domain/DepartmentAbcdin';
+import { DepartmentFalabella } from '../src/Domain/DepartmentFalabella';
 import { Paginator } from '../src/Domain/Paginator';
-import { AbcdinPageFetcher } from '../src/Infrastructure/AbcdinPageFetcher';
-import { AbcdinProductParser } from '../src/Infrastructure/AbcdinProductParser';
 import { ElasticsearchProductRepository } from '../src/Infrastructure/ElasticsearchProductRepository';
+import { FalabellaPageFetcher } from '../src/Infrastructure/FalabellaPageFetcher';
+import { FalabellaProductParser } from '../src/Infrastructure/FalabellaProductParser';
 import { FetchHttpClient } from '../src/Infrastructure/FecthHttpClient';
 import { TelegramNotifier } from '../src/Infrastructure/TelegramNotifier';
 import config from './config';
@@ -18,11 +18,10 @@ const main = async () => {
         notifier = new TelegramNotifier(config.TELEGRAM_BOT_TOKEN, config.TELEGRAM_CHANNEL_ID);
     }
 
-    for (let key in DepartmentAbcdin) {
-        const pageFetcher = new AbcdinPageFetcher(key, httpClient);
-        const productParser = new AbcdinProductParser(DepartmentAbcdin[key]);
-        const total = await pageFetcher.getTotalCount();
-        const paginator = new Paginator(16, total, 0);
+    for (let key in DepartmentFalabella) {
+        const pageFetcher = new FalabellaPageFetcher(key, httpClient);
+        const productParser = new FalabellaProductParser(DepartmentFalabella[key]);
+        const paginator = new Paginator(48, Number.POSITIVE_INFINITY, 0);
         const app = new GetProductsByDepartment(config.APP_DISCOUNT, pageFetcher, productParser, paginator, repository, notifier);
         app.start();
     }

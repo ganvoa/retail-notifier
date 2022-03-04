@@ -1,7 +1,8 @@
 import { HttpClient } from "../Domain/HttpClient";
 import { RetailPageFetcher } from "../Domain/RetailPageFetcher";
+import { sleep } from "./Helper";
 
-export class ParisPageFetcher implements RetailPageFetcher {
+export class FalabellaPageFetcher implements RetailPageFetcher {
 
     constructor(
         private department: string,
@@ -9,9 +10,9 @@ export class ParisPageFetcher implements RetailPageFetcher {
     ) { }
 
     async getPage(limit: number, offset: number, page: number): Promise<string> {
-        const url = `https://www.paris.cl/${this.department}/?start=${offset}&sz=${limit}&prefn1=seller&prefv1=Paris.cl`;
+        const url = `https://www.falabella.com/s/browse/v1/listing/cl?f.derived.variant.sellerId=FALABELLA&facetSelected=true&page=${page}&categoryId=${this.department.split('/')[0]}&categoryName=${this.department.split('/')[1]}`;
         const response = await this.httpClient.get({ url: url });
+        await sleep(500);
         return Promise.resolve(response.body);
     }
-
 }
