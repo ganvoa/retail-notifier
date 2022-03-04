@@ -4,6 +4,7 @@ export const DepartmentFalabella: { [key: string]: Department } = {
     'cat9360001/Mascotas': Department.Mascotas,
     'cat16510006/Electrohogar': Department.Electro,
     'cat7090034/Tecnologia': Department.Tecnologia,
-    'cat7330051/Mujer': Department.Mujer,
-    'cat7450065/Hombre': Department.Hombre,
+    'cat12440001/Zapatos-Mujer': Department.Mujer,
+    'cat7660002/Belleza--higiene-y-salud': Department.Belleza,
+    'cat1008/Muebles': Department.Muebles,
 }

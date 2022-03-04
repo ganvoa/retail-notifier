@@ -40,6 +40,14 @@ export class FalabellaProductParser implements ProductParser {
                 normalPrice = currentPrice;
             }
 
+            if (exclusivePrice == 0) {
+                exclusivePrice = normalPrice;
+            }
+
+            if (currentPrice == 0) {
+                currentPrice = normalPrice;
+            }
+
             const minPrice = Math.min(currentPrice, normalPrice, exclusivePrice);
             const discountPercentage = Math.round(100 - minPrice * 100 / normalPrice);
             products.push(
