@@ -1,7 +1,11 @@
 export enum Department {
+    Belleza = 'belleza',
+    Mujer = 'mujer',
+    Hombre = 'hombre',
     Tecnologia = 'tecnologia',
     Muebles = 'muebles',
     Electro = 'electro',
     Dormitorio = 'dormitorio',
-    LineaBlanca = 'linea blanca',
+    LineaBlanca = 'linea-blanca',
+    Mascotas = 'mascotas',
 }

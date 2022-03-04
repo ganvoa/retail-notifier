@@ -29,9 +29,15 @@ export class ParisProductParser implements ProductParser {
             }
 
             let imageUrl = undefined;
-            const imageUrlRegex = str.match(/image-primary[\w\W]+?data-src="([\w\W]+?)"/);
+            let imageUrlRegex = str.match(/image-primary[\w\W]+?data-src="([\w\W]+?)"/);
             if (null !== imageUrlRegex) {
                 imageUrl = imageUrlRegex[1];
+            } else {
+                imageUrlRegex = str.match(/img-prod lazy[\w\W]+?data-src="([\w\W]+?)"/);
+                if (null !== imageUrlRegex) {
+                    imageUrl = imageUrlRegex[1];
+                }
+                
             }
 
             let itemUrl = undefined;
