@@ -7,6 +7,24 @@ export class ParisProductParser implements ProductParser {
 
     constructor(private department: Department) { }
 
+    private cleanString(str: string): string {
+        return str.replace(/&quot;/g, '"')
+            .replace(/&aacute;/g, 'á')
+            .replace(/&Aacute;/g, 'Á')
+            .replace(/&eacute;/g, 'é')
+            .replace(/&Eacute;/g, 'É')
+            .replace(/&iacute;/g, 'í')
+            .replace(/&Iacute;/g, 'Í')
+            .replace(/&oacute;/g, 'ó')
+            .replace(/&Oacute;/g, 'Ó')
+            .replace(/&uacute;/g, 'ú')
+            .replace(/&Uacute;/g, 'Ú')
+            .replace(/&ntilde;/g, 'ñ')
+            .replace(/&Ntilde;/g, 'Ñ')
+            .replace(/&amp;/g, '&')
+            ;
+    }
+
     getAll(content: string): Product[] {
         const products: Product[] = [];
 
@@ -48,14 +66,7 @@ export class ParisProductParser implements ProductParser {
                 itemUrl = itemUrl.replace(/&amp;/g, '&');
             }
 
-            const jsonData = itemData[1]
-                .replace(/&quot;/g, '"')
-                .replace(/&aacute;/g, 'á')
-                .replace(/&eacute;/g, 'é')
-                .replace(/&iacute;/g, 'í')
-                .replace(/&oacute;/g, 'ó')
-                .replace(/&uacute;/g, 'ú')
-                ;
+            const jsonData = this.cleanString(itemData[1])
             const json = JSON.parse(jsonData);
 
             const currentPrice = parseInt(json.price);
@@ -67,9 +78,9 @@ export class ParisProductParser implements ProductParser {
                 {
                     retailId: Retail.Paris,
                     productId: json.id,
-                    name: json.name.trim(),
+                    name: this.cleanString(json.name.trim()),
                     imageUrl: imageUrl,
-                    brand: json.brand.trim(),
+                    brand: this.cleanString(json.brand.trim()),
                     currentPrice: currentPrice,
                     normalPrice: normalPrice,
                     exclusivePrice: exclusivePrice,

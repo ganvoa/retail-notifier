@@ -10,7 +10,6 @@ export class ParisPageFetcher implements RetailPageFetcher {
 
     async getPage(limit: number, offset: number, page: number): Promise<string> {
         const url = `https://www.paris.cl/${this.department}/?start=${offset}&sz=${limit}`;
-        console.log(url);
         const response = await this.httpClient.get({ url: url });
         return Promise.resolve(response.body);
     }

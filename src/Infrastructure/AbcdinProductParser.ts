@@ -7,6 +7,24 @@ export class AbcdinProductParser implements ProductParser {
 
     constructor(private department: Department) { }
 
+    private cleanString(str: string): string {
+        return str.replace(/&quot;/g, '"')
+            .replace(/&aacute;/g, 'á')
+            .replace(/&Aacute;/g, 'Á')
+            .replace(/&eacute;/g, 'é')
+            .replace(/&Eacute;/g, 'É')
+            .replace(/&iacute;/g, 'í')
+            .replace(/&Iacute;/g, 'Í')
+            .replace(/&oacute;/g, 'ó')
+            .replace(/&Oacute;/g, 'Ó')
+            .replace(/&uacute;/g, 'ú')
+            .replace(/&Uacute;/g, 'Ú')
+            .replace(/&ntilde;/g, 'ñ')
+            .replace(/&Ntilde;/g, 'Ñ')
+            .replace(/&amp;/g, '&')
+            ;
+    }
+
     getAll(content: string): Product[] {
         const products: Product[] = [];
 
@@ -57,9 +75,9 @@ export class AbcdinProductParser implements ProductParser {
                 {
                     retailId: Retail.Abcdin,
                     productId: productId,
-                    name: name.trim(),
+                    name: this.cleanString(name.trim()),
                     imageUrl: imageUrl,
-                    brand: brand.trim(),
+                    brand: this.cleanString(brand.trim()),
                     currentPrice: currentPrice,
                     normalPrice: normalPrice,
                     exclusivePrice: exclusivePrice,
