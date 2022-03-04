@@ -12,6 +12,10 @@ export class FalabellaProductParser implements ProductParser {
         const products: Product[] = [];
         const json = JSON.parse(JSON.stringify(content, null, 8));
 
+        if (json === '') {
+            return products;
+        }
+
         for (const obj of json.data.results) {
 
             let currentPrice = 0;

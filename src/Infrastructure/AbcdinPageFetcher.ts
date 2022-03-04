@@ -1,5 +1,6 @@
 import { HttpClient } from "../Domain/HttpClient";
 import { RetailPageFetcher } from "../Domain/RetailPageFetcher";
+import { sleep } from "./Helper";
 
 export class AbcdinPageFetcher implements RetailPageFetcher {
 
@@ -11,6 +12,7 @@ export class AbcdinPageFetcher implements RetailPageFetcher {
     async getPage(limit: number, offset: number, page: number): Promise<string> {
         const url = `https://www.abcdin.cl/${this.department}/?p=${page}`;
         const response = await this.httpClient.get({ url: url });
+        await sleep(500);
         return Promise.resolve(response.body);
     }
 
