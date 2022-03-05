@@ -9,7 +9,7 @@ clean:
 compile:
 	@npx tsc
 
-start: stop clean compile
+start:
 	@pm2 start build/app/abcdin.js --restart-delay 300000 --time
 	@pm2 start build/app/paris.js --restart-delay 300000 --time
 	@pm2 start build/app/falabella.js --restart-delay 300000 --time

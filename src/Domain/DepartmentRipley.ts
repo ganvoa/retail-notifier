@@ -1,6 +1,12 @@
 import { Department } from "./Department";
 
 export const DepartmentRipley: { [key: string]: Department } = {
+    'accesorios-y-complementos/optica': Department.Belleza,
+    'belleza/maquillaje': Department.Belleza,
+    'belleza/rostro': Department.Belleza,
+    'belleza/cuerpo': Department.Belleza,
+    'belleza/capilares/capilar-profesional': Department.Belleza,
+    'belleza/dermocosmetica': Department.Belleza,
     'tecno/celulares': Department.Tecnologia,
     'tecno/computacion': Department.Tecnologia,
     'tecno/mundo-gamer': Department.Tecnologia,

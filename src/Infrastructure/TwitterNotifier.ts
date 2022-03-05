@@ -1,20 +1,45 @@
+import Twitter from "twitter-lite";
 import { Notifier } from "../Domain/Notifier";
 import { Product } from "../Domain/Product";
-import { TwitterApi } from 'twitter-api-v2';
+
+type TwitterConfig = {
+    consumerKey: string,
+    consumerSecret: string,
+    accessTokenKey: string,
+    accessTokenSecret: string,
+}
 
 export class TwitterNotifier implements Notifier {
 
-    private twitter: TwitterApi;
+    private client: Twitter;
 
-    constructor(token: string) {
-
-        this.twitter = new TwitterApi(token);
+    constructor(config: TwitterConfig) {
+        this.client = new Twitter(
+            {
+                consumer_key: config.consumerKey,
+                consumer_secret: config.consumerSecret,
+                access_token_key: config.accessTokenKey,
+                access_token_secret: config.accessTokenSecret
+            }
+        );
     }
 
     async notify(product: Product): Promise<void> {
+        if (product.productUrl == undefined) {
+            return Promise.resolve();
+        }
 
         try {
-            await this.twitter.v1.tweet(`${product.name} $ ${product.minPrice} % ${product.discountPercentage}`);
+            const formatter = Intl.NumberFormat();
+            let message = `
+${product.name} 
+
+${product.discountPercentage}% Descuento | $ ${formatter.format(product.minPrice)}
+
+${product.productUrl}
+            
+#${product.retailId} #${product.department} #oferta #descuento`;
+            await this.client.post('statuses/update', { status: message });
             return Promise.resolve();
         } catch (error) {
             return Promise.reject(error);

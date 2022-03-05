@@ -6,6 +6,10 @@ interface Config {
     TELEGRAM_CHANNEL_ID: string;
     ELASTICSEARCH_INDEX: string;
     ELASTICSEARCH_HOST: string;
+    TWITTER_API_KEY: string;
+    TWITTER_API_KEY_SECRET: string;
+    TWITTER_ACCESS_TOKEN: string;
+    TWITTER_ACCESS_TOKEN_SECRET: string;
     APP_DISCOUNT: number;
     SHOULD_NOTIFY: boolean;
 }
@@ -16,6 +20,10 @@ const getConfig = (): Config => {
         TELEGRAM_CHANNEL_ID: process.env.TELEGRAM_CHANNEL_ID || "invalid_channel",
         ELASTICSEARCH_INDEX: process.env.ELASTICSEARCH_INDEX || "retail",
         ELASTICSEARCH_HOST: process.env.ELASTICSEARCH_HOST || "http://localhost:9200",
+        TWITTER_API_KEY: process.env.TWITTER_API_KEY || "-",
+        TWITTER_API_KEY_SECRET: process.env.TWITTER_API_KEY_SECRET || "-",
+        TWITTER_ACCESS_TOKEN: process.env.TWITTER_ACCESS_TOKEN || "-",
+        TWITTER_ACCESS_TOKEN_SECRET: process.env.TWITTER_ACCESS_TOKEN_SECRET || "-",
         APP_DISCOUNT: process.env.APP_DISCOUNT ? parseInt(process.env.APP_DISCOUNT) : 50,
         SHOULD_NOTIFY: process.env.SHOULD_NOTIFY ? process.env.SHOULD_NOTIFY == 'true' : false,
     };
