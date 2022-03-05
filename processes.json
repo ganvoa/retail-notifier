@@ -1,0 +1,32 @@
+{
+    "apps": [
+        {
+            "merge_logs": true,
+            "name": "paris",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/cli/paris.js",
+            "restart_delay": 300000
+        },
+        {
+            "merge_logs": true,
+            "name": "ripley",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/cli/ripley.js",
+            "restart_delay": 300000
+        },
+        {
+            "merge_logs": true,
+            "name": "falabella",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/cli/falabella.js",
+            "restart_delay": 300000
+        },
+        {
+            "merge_logs": true,
+            "name": "abcdin",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/cli/abcdin.js",
+            "restart_delay": 300000
+        }
+    ]
+}
