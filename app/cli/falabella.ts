@@ -1,12 +1,12 @@
-import { GetProductsByDepartment } from '../src/Application/GetProductsByDepartment';
-import { DepartmentFalabella } from '../src/Domain/DepartmentFalabella';
-import { Paginator } from '../src/Domain/Paginator';
-import { ElasticsearchProductRepository } from '../src/Infrastructure/ElasticsearchProductRepository';
-import { FalabellaPageFetcher } from '../src/Infrastructure/FalabellaPageFetcher';
-import { FalabellaProductParser } from '../src/Infrastructure/FalabellaProductParser';
-import { FetchHttpClient } from '../src/Infrastructure/FecthHttpClient';
-import { TelegramNotifier } from '../src/Infrastructure/TelegramNotifier';
-import config from './config';
+import { GetProductsByDepartment } from '../../src/Application/GetProductsByDepartment';
+import { DepartmentFalabella } from '../../src/Domain/DepartmentFalabella';
+import { Paginator } from '../../src/Domain/Paginator';
+import { ElasticsearchProductRepository } from '../../src/Infrastructure/ElasticsearchProductRepository';
+import { FalabellaPageFetcher } from '../../src/Infrastructure/FalabellaPageFetcher';
+import { FalabellaProductParser } from '../../src/Infrastructure/FalabellaProductParser';
+import { FetchHttpClient } from '../../src/Infrastructure/FecthHttpClient';
+import { TelegramNotifier } from '../../src/Infrastructure/TelegramNotifier';
+import config from './../config';
 
 const main = async () => {
 

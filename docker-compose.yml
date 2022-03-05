@@ -1,0 +1,73 @@
+version: '3.5'
+services:
+  app:
+    container_name: retail
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - TWITTER_API_KEY
+      - TWITTER_API_KEY_SECRET
+      - TWITTER_ACCESS_TOKEN
+      - TWITTER_ACCESS_TOKEN_SECRET
+      - TELEGRAM_BOT_TOKEN
+      - TELEGRAM_CHANNEL_ID
+      - ELASTICSEARCH_INDEX
+      - ELASTICSEARCH_HOST=http://elasticsearch:9200
+      - APP_DISCOUNT
+      - SHOULD_NOTIFY
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m" 
+        max-file: "3"
+    deploy:
+      resources:
+          limits:
+            cpus: 2
+            memory: 1G
+  elasticsearch:
+    container_name: retail-elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    volumes:
+      - /home/gamboa/dev/env/docker-persistence/elasticsearch:/usr/share/elasticsearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    restart: unless-stopped
+    ports:
+      - 9200:9200
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m" 
+        max-file: "3"
+    deploy:
+      resources:
+          limits:
+            cpus: 2
+            memory: 4G
+  kibana:
+    container_name: retail-kibana
+    image: docker.elastic.co/kibana/kibana:7.15.0
+    environment:
+      SERVER_NAME: localhost
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - 5601:5601
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m" 
+        max-file: "3"
+    deploy:
+      resources:
+          limits:
+            cpus: 2
+            memory: 4G
+    restart: unless-stopped

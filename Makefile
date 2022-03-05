@@ -14,6 +14,7 @@ start:
 	@pm2 start build/app/paris.js --restart-delay 300000 --time
 	@pm2 start build/app/falabella.js --restart-delay 300000 --time
 	@pm2 start build/app/ripley.js --restart-delay 300000 --time
+	@pm2 monit
 
 monitor:
 	@pm2 monit

@@ -1,12 +1,12 @@
-import { GetProductsByDepartment } from '../src/Application/GetProductsByDepartment';
-import { DepartmentRipley } from '../src/Domain/DepartmentRipley';
-import { Paginator } from '../src/Domain/Paginator';
-import { ElasticsearchProductRepository } from '../src/Infrastructure/ElasticsearchProductRepository';
-import { FetchHttpClient } from '../src/Infrastructure/FecthHttpClient';
-import { RipleyPageFetcher } from '../src/Infrastructure/RipleyPageFetcher';
-import { RipleyProductParser } from '../src/Infrastructure/RipleyProductParser';
-import { TelegramNotifier } from '../src/Infrastructure/TelegramNotifier';
-import config from './config';
+import { GetProductsByDepartment } from '../../src/Application/GetProductsByDepartment';
+import { DepartmentRipley } from '../../src/Domain/DepartmentRipley';
+import { Paginator } from '../../src/Domain/Paginator';
+import { ElasticsearchProductRepository } from '../../src/Infrastructure/ElasticsearchProductRepository';
+import { FetchHttpClient } from '../../src/Infrastructure/FecthHttpClient';
+import { RipleyPageFetcher } from '../../src/Infrastructure/RipleyPageFetcher';
+import { RipleyProductParser } from '../../src/Infrastructure/RipleyProductParser';
+import { TelegramNotifier } from '../../src/Infrastructure/TelegramNotifier';
+import config from './../config';
 
 const main = async () => {
 

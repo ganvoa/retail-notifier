@@ -1,8 +1,8 @@
-import { ProductNotifier } from '../src/Application/ProductNotifier';
-import { Retail } from '../src/Domain/Retail';
-import { ElasticsearchProductRepository } from '../src/Infrastructure/ElasticsearchProductRepository';
-import { TwitterNotifier } from '../src/Infrastructure/TwitterNotifier';
-import config from './config';
+import { ProductNotifier } from '../../src/Application/ProductNotifier';
+import { Retail } from '../../src/Domain/Retail';
+import { ElasticsearchProductRepository } from '../../src/Infrastructure/ElasticsearchProductRepository';
+import { TwitterNotifier } from '../../src/Infrastructure/TwitterNotifier';
+import config from './../config';
 
 const main = async () => {
 
