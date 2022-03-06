@@ -1,9 +1,9 @@
 import { Product } from "../Domain/Product";
-import { PorductRepository } from "../Domain/ProductRepository";
+import { ProductRepository } from "../Domain/ProductRepository";
 import { Retail } from "../Domain/Retail";
 import { Client } from '@elastic/elasticsearch'
 
-export class ElasticsearchProductRepository implements PorductRepository {
+export class ElasticsearchProductRepository implements ProductRepository {
 
     private client: Client;
 

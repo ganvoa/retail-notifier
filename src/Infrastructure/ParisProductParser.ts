@@ -37,7 +37,6 @@ export class ParisProductParser implements ProductParser {
                 if (null !== imageUrlRegex) {
                     imageUrl = imageUrlRegex[1];
                 }
-                
             }
 
             let itemUrl = undefined;

@@ -1,10 +1,10 @@
 import { Notifier } from "../Domain/Notifier";
-import { PorductRepository } from "../Domain/ProductRepository";
+import { ProductRepository } from "../Domain/ProductRepository";
 import { Retail } from "../Domain/Retail";
 
 export class ProductNotifier {
     constructor(
-        private repository: PorductRepository,
+        private repository: ProductRepository,
         private notifier: Notifier
     ) { }
 

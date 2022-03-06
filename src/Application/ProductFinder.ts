@@ -1,17 +1,14 @@
-import { Notifier } from "../Domain/Notifier";
+import { Exchange } from "../Domain/Exchange";
 import { Paginator } from "../Domain/Paginator";
 import { ProductParser } from "../Domain/ProductParser";
-import { ProductRepository } from "../Domain/ProductRepository";
 import { RetailPageFetcher } from "../Domain/RetailPageFetcher";
 
-export class GetProductsByDepartment {
+export class ProductFinder {
     constructor(
-        private discount: number,
         private pageFetcher: RetailPageFetcher,
         private productParser: ProductParser,
         private paginator: Paginator,
-        private repository: ProductRepository,
-        private notifier?: Notifier
+        private exchange: Exchange,
     ) { }
 
     async start() {
@@ -30,16 +27,9 @@ export class GetProductsByDepartment {
                 totalProductsFound += products.length;
 
                 for (const product of products) {
-                    if (product.valid && product.discountPercentage >= this.discount) {
+                    if (product.valid) {
                         try {
-                            const productAlreadyExists = await this.repository.find(product.productId, product.retailId, product.minPrice);
-                            if (productAlreadyExists === undefined) {
-                                if (this.notifier) {
-                                    await this.notifier.notify(product);
-                                }
-                                console.log(`${product.retailId};${product.department};${product.productId};${product.minPrice};${product.discountPercentage};${product.productUrl}`);
-                                await this.repository.save(product);
-                            }
+                            await this.exchange.publish(product);
                         } catch (e) {
                             console.error(e);
                         }

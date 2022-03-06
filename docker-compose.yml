@@ -1,7 +1,7 @@
 version: '3.5'
 services:
-  app:
-    container_name: retail
+  scrapper:
+    container_name: retail-scrapper
     build:
       context: .
       dockerfile: Dockerfile
@@ -71,3 +71,26 @@ services:
             cpus: 2
             memory: 4G
     restart: unless-stopped
+  rabbitmq:
+    container_name: retail-rabbitmq
+    image: rabbitmq:3-management-alpine
+    volumes:
+      - ./docker/rabbitmq:/var/lib/rabbitmq
+    environment:
+      RABBITMQ_ERLANG_COOKIE: ThisIsACookie
+      RABBITMQ_DEFAULT_USER: retail
+      RABBITMQ_DEFAULT_PASS: retail
+    ports:
+      - 5672:5672
+      - 15672:15672
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m" 
+        max-file: "3"
+    deploy:
+      resources:
+          limits:
+            cpus: 2
+            memory: 4G
