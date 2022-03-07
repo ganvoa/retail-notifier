@@ -1,4 +1,4 @@
-import { Exchange } from "../Domain/Exchange";
+import { Broker } from "../Domain/Broker";
 import rabbit from 'amqplib';
 
 export enum RabbitExchangeType {
@@ -15,7 +15,7 @@ type RabbitConfig = {
     exchangeType: RabbitExchangeType
 }
 
-export class RabbitMqExchange implements Exchange {
+export class RabbitMqBroker implements Broker {
 
     private connection: rabbit.Connection | undefined;
     private channel: rabbit.ConfirmChannel | undefined;

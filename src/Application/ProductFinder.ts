@@ -1,4 +1,4 @@
-import { Exchange } from "../Domain/Exchange";
+import { Broker } from "../Domain/Broker";
 import { Paginator } from "../Domain/Paginator";
 import { ProductParser } from "../Domain/ProductParser";
 import { RetailPageFetcher } from "../Domain/RetailPageFetcher";
@@ -8,7 +8,7 @@ export class ProductFinder {
         private pageFetcher: RetailPageFetcher,
         private productParser: ProductParser,
         private paginator: Paginator,
-        private exchange: Exchange,
+        private exchange: Broker,
     ) { }
 
     async start() {

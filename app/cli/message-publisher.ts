@@ -1,12 +1,12 @@
-import { MessagePublisher } from '../../src/Application/MessagePublisher';
+import { ProductFoundPublisher } from '../../src/Application/ProductFoundPublisher';
 import { Department } from '../../src/Domain/Department';
 import { Product } from '../../src/Domain/Product';
 import { Retail } from '../../src/Domain/Retail';
-import { RabbitExchangeType, RabbitMqExchange } from '../../src/Infrastructure/RabbitMqExchange';
+import { RabbitExchangeType, RabbitMqBroker } from '../../src/Infrastructure/RabbitMqBroker';
 
 const main = async () => {
 
-    const exchange = new RabbitMqExchange(
+    const exchange = new RabbitMqBroker(
         {
             fqdn: 'amqp://retail:retail@localhost:5672',
             exchangeName: 'retail',
@@ -16,7 +16,7 @@ const main = async () => {
     );
     console.log('setup');
     await exchange.setup();
-    const app = new MessagePublisher(exchange);
+    const app = new ProductFoundPublisher(exchange);
     const product: Product = {
         productId: '1234567',
         brand: 'generic',

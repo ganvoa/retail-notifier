@@ -1,9 +1,9 @@
-import { MessageSubscriber } from '../../src/Application/MessageSubscriber';
-import { RabbitExchangeType, RabbitMqExchange } from '../../src/Infrastructure/RabbitMqExchange';
+import { ProductFoundSubscriber } from '../../src/Application/ProductFoundSubscriber';
+import { RabbitExchangeType, RabbitMqBroker } from '../../src/Infrastructure/RabbitMqBroker';
 
 const main = async () => {
 
-    const exchange = new RabbitMqExchange(
+    const exchange = new RabbitMqBroker(
         {
             fqdn: 'amqp://retail:retail@localhost:5672',
             exchangeName: 'retail',
@@ -12,7 +12,7 @@ const main = async () => {
         }
     );
     await exchange.setup();
-    const app = new MessageSubscriber(exchange);
+    const app = new ProductFoundSubscriber(exchange);
     app.subscribe();
 }
 

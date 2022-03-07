@@ -3,12 +3,12 @@ import { DepartmentParis } from '../../src/Domain/DepartmentParis';
 import { FetchHttpClient } from '../../src/Infrastructure/FecthHttpClient';
 import { ParisPageFetcher } from '../../src/Infrastructure/ParisPageFetcher';
 import { ParisProductParser } from '../../src/Infrastructure/ParisProductParser';
-import { RabbitExchangeType, RabbitMqExchange } from '../../src/Infrastructure/RabbitMqExchange';
+import { RabbitExchangeType, RabbitMqBroker } from '../../src/Infrastructure/RabbitMqBroker';
 import { ProductFinder } from '../../src/Application/ProductFinder';
 
 const main = async () => {
 
-    const exchange = new RabbitMqExchange(
+    const exchange = new RabbitMqBroker(
         {
             fqdn: 'amqp://retail:retail@localhost:5672',
             exchangeName: 'retail',

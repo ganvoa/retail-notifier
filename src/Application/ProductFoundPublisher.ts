@@ -1,9 +1,9 @@
-import { Exchange } from "../Domain/Exchange";
+import { Broker } from "../Domain/Broker";
 import { Product } from "../Domain/Product";
 
-export class MessagePublisher {
+export class ProductFoundPublisher {
     constructor(
-        private exchange: Exchange
+        private exchange: Broker
     ) { }
 
     async publish(product: Product) {

@@ -1,10 +1,9 @@
-import { resolvePtr } from "dns";
-import { Exchange } from "../Domain/Exchange";
+import { Broker } from "../Domain/Broker";
 import { Product } from "../Domain/Product";
 
-export class MessageSubscriber {
+export class ProductFoundSubscriber {
     constructor(
-        private exchange: Exchange
+        private exchange: Broker
     ) { }
 
     subscribe() {
