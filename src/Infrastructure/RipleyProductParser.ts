@@ -25,6 +25,11 @@ export class RipleyProductParser implements ProductParser {
             const minPrice = Math.min(currentPrice, normalPrice, exclusivePrice);
             const discountPercentage = Math.round(100 - minPrice * 100 / normalPrice);
 
+            let productUrl = obj.url;
+            if (productUrl === undefined || productUrl === '') {
+                productUrl = `https://simple.ripley.cl/${obj.productString}`;
+            }
+
             products.push(
                 {
                     retailId: Retail.Ripley,
@@ -32,7 +37,7 @@ export class RipleyProductParser implements ProductParser {
                     name: cleanString(obj.name.trim()),
                     imageUrl: obj.thumbnail ? "https://" + obj.thumbnail : undefined,
                     brand: cleanString(obj.manufacturer ? obj.manufacturer.trim() : '-'),
-                    productUrl: obj.url,
+                    productUrl: productUrl,
                     valid: !obj.isMarketplaceProduct,
                     department: this.department,
                     timestamp: Date.now(),
