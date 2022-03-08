@@ -22,6 +22,7 @@ export class ProductFinder {
                     this.paginator.getOffset(),
                     this.paginator.getPage()
                 );
+                console.log(`page: ${this.paginator.getPage()}`);
                 const products = this.productParser.getAll(page);
                 currentProductsFound = products.length;
                 totalProductsFound += products.length;

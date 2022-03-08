@@ -41,7 +41,7 @@ ${product.productUrl}
             
 #${product.retailId} #${product.department} #oferta #descuento`;
             await this.client.post('statuses/update', { status: message });
-            await sleep(1000);
+            await sleep(5000);
             return Promise.resolve();
         } catch (error) {
             console.error(error);

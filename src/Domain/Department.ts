@@ -8,4 +8,5 @@ export enum Department {
     Dormitorio = 'dormitorio',
     LineaBlanca = 'linea-blanca',
     Mascotas = 'mascotas',
+    Deportes = 'deportes',
 }

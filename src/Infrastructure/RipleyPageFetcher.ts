@@ -12,7 +12,7 @@ export class RipleyPageFetcher implements RetailPageFetcher {
     async getPage(limit: number, offset: number, page: number): Promise<string> {
         const url = `https://simple.ripley.cl/${this.department}?source=menu&page=${page}&s=mdco`;
         const response = await this.httpClient.get({ url: url });
-        await sleep(500);
+        await sleep(2000);
         return Promise.resolve(response.body);
     }
 

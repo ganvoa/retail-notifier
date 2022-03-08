@@ -21,7 +21,7 @@ export class ProductPersister implements ProductHandler {
         const productAlreadyExists = await this.repository.find(product.productId, product.retailId, product.minPrice);
         if (productAlreadyExists === undefined && product.discountPercentage >= config.APP_DISCOUNT) {
             await this.repository.save(product);
-            console.log(`product stored: ${product.retailId}`);
+            console.log(`product stored: ${product.retailId};${product.name};${product.productUrl}`);
             await this.broker.publish<Product>(Event.ProductStored, product);
         }
         return Promise.resolve();

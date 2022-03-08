@@ -1,8 +1,15 @@
-stop:
-	@docker-compose stop
+stop: stop-scrapper stop-others
 
-start:
-	@docker-compose build && docker-compose up -d
+stop-others:
+	@docker-compose stop rabbitmq elasticsearch kibana
+
+stop-scrapper:
+	@docker-compose stop scrapper
+
+start: start-others start-scrapper
+
+start-scrapper:
+	@docker-compose build && docker-compose up -d scrapper
 
 start-others:
 	@docker-compose up -d rabbitmq elasticsearch kibana

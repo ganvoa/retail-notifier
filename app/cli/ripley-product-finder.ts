@@ -18,13 +18,15 @@ const main = async () => {
 
     await broker.setup();
     const httpClient = new FetchHttpClient();
+    const promises = [];
     for (let key in DepartmentRipley) {
         const paginator = new Paginator(60, Number.POSITIVE_INFINITY, 0);
         const pageFetcher = new RipleyPageFetcher(key, httpClient);
         const productParser = new RipleyProductParser(DepartmentRipley[key]);
         const app = new ProductFinder(pageFetcher, productParser, paginator, broker);
-        await app.start();
+        promises.push(app.start());
     }
+    await Promise.all(promises);
     await broker.close();
 }
 

@@ -21,7 +21,7 @@ export class TelegramNotifier implements Notifier {
 ${product.discountPercentage}% Descuento | $ ${formatter.format(product.minPrice)}
 
 ${product.productUrl}`, { parse_mode: "HTML" });
-            await sleep(500);
+            await sleep(3000);
             return Promise.resolve();
         } catch (error) {
             return Promise.reject(error);
