@@ -4,29 +4,47 @@
             "merge_logs": true,
             "name": "paris",
             "log_date_format": "MM/DD/YYYY HH:mm:ss",
-            "script": "build/app/cli/paris.js",
+            "script": "build/app/cli/paris-product-finder.js",
             "restart_delay": 300000
         },
         {
             "merge_logs": true,
             "name": "ripley",
             "log_date_format": "MM/DD/YYYY HH:mm:ss",
-            "script": "build/app/cli/ripley.js",
+            "script": "build/app/cli/ripley-product-finder.js",
             "restart_delay": 300000
         },
         {
             "merge_logs": true,
             "name": "falabella",
             "log_date_format": "MM/DD/YYYY HH:mm:ss",
-            "script": "build/app/cli/falabella.js",
+            "script": "build/app/cli/falabella-product-finder.js",
             "restart_delay": 300000
         },
         {
             "merge_logs": true,
             "name": "abcdin",
             "log_date_format": "MM/DD/YYYY HH:mm:ss",
-            "script": "build/app/cli/abcdin.js",
+            "script": "build/app/cli/abcdin-product-finder.js",
             "restart_delay": 300000
+        },
+        {
+            "merge_logs": true,
+            "name": "telegram-notifier",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/cli/product-notify-telegram.js"
+        },
+        {
+            "merge_logs": true,
+            "name": "twitter-notifier",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/cli/product-notify-twitter.js"
+        },
+        {
+            "merge_logs": true,
+            "name": "product-store",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/cli/product-store.js"
         }
     ]
 }

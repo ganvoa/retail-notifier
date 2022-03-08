@@ -1,6 +1,7 @@
 import TelegramBot from "node-telegram-bot-api";
 import { Notifier } from "../Domain/Notifier";
 import { Product } from "../Domain/Product";
+import { sleep } from "./Helper";
 export class TelegramNotifier implements Notifier {
 
     private bot: TelegramBot;
@@ -20,6 +21,7 @@ export class TelegramNotifier implements Notifier {
 ${product.discountPercentage}% Descuento | $ ${formatter.format(product.minPrice)}
 
 ${product.productUrl}`, { parse_mode: "HTML" });
+            await sleep(500);
             return Promise.resolve();
         } catch (error) {
             return Promise.reject(error);

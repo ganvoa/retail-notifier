@@ -1,6 +1,7 @@
 import Twitter from "twitter-lite";
 import { Notifier } from "../Domain/Notifier";
 import { Product } from "../Domain/Product";
+import { sleep } from "./Helper";
 
 type TwitterConfig = {
     consumerKey: string,
@@ -40,9 +41,11 @@ ${product.productUrl}
             
 #${product.retailId} #${product.department} #oferta #descuento`;
             await this.client.post('statuses/update', { status: message });
+            await sleep(1000);
             return Promise.resolve();
         } catch (error) {
-            return Promise.reject(error);
+            console.error(error);
+            return Promise.resolve();
         }
 
     }

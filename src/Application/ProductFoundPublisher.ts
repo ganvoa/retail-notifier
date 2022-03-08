@@ -1,12 +1,13 @@
-import { Broker } from "../Domain/Broker";
+import { DirectBroker } from "../Domain/Broker";
+import { Event } from "../Domain/Event";
 import { Product } from "../Domain/Product";
 
 export class ProductFoundPublisher {
     constructor(
-        private exchange: Broker
+        private broker: DirectBroker
     ) { }
 
     async publish(product: Product) {
-        await this.exchange.publish(product);
+        await this.broker.publish(Event.ProductFound, product);
     }
 }

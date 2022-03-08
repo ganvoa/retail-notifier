@@ -1,22 +1,15 @@
 import { Notifier } from "../Domain/Notifier";
-import { ProductRepository } from "../Domain/ProductRepository";
-import { Retail } from "../Domain/Retail";
+import { Product } from "../Domain/Product";
+import { ProductHandler } from "../Domain/ProductHandler";
 
-export class ProductNotifier {
+export class ProductNotifier implements ProductHandler {
     constructor(
-        private repository: ProductRepository,
         private notifier: Notifier
     ) { }
 
-    async notify(productId: string, retailId: Retail, minPrice: number) {
-        try {
-            const product = await this.repository.find(productId, retailId, minPrice);
-            if (product) {
-                console.log(`notifying ${product.name}...`);
-                await this.notifier.notify(product);
-            }
-        } catch (e) {
-            console.error(e);
-        }
+    async handle(product: Product): Promise<void> {
+        console.log(`notifying product ${product.name}...`);
+        await this.notifier.notify(product);
+        return Promise.resolve();
     }
 }

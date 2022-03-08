@@ -1,22 +1,21 @@
 import { ProductFoundPublisher } from '../../src/Application/ProductFoundPublisher';
+import { ProductStoredPublisher } from '../../src/Application/ProductStoredPublisher';
 import { Department } from '../../src/Domain/Department';
 import { Product } from '../../src/Domain/Product';
 import { Retail } from '../../src/Domain/Retail';
-import { RabbitExchangeType, RabbitMqBroker } from '../../src/Infrastructure/RabbitMqBroker';
+import { RabbitFanoutBroker } from '../../src/Infrastructure/RabbitFanoutBroker';
+import config from '../config';
 
 const main = async () => {
 
-    const exchange = new RabbitMqBroker(
+    const broker = new RabbitFanoutBroker(
         {
-            fqdn: 'amqp://retail:retail@localhost:5672',
-            exchangeName: 'retail',
-            exchangeType: RabbitExchangeType.Direct,
-            queueName: 'retail.product-found'
+            fqdn: config.RABBIT_FQDN,
+            exchangeName: config.RABBIT_EXCHANGE_NAME
         }
     );
-    console.log('setup');
-    await exchange.setup();
-    const app = new ProductFoundPublisher(exchange);
+    await broker.setup();
+    const app = new ProductStoredPublisher(broker);
     const product: Product = {
         productId: '1234567',
         brand: 'generic',
@@ -30,13 +29,11 @@ const main = async () => {
         retailId: Retail.Ripley,
         timestamp: Date.now(),
         valid: true,
-        imageUrl: undefined,
-        productUrl: undefined
+        imageUrl: `https://home.ripley.cl/store/Attachment/WOP/D328/2000374180238/2000374180238_2.jpg`,
+        productUrl: `https://simple.ripley.cl/set-body-secret-mandala-2000374180238p`
     }
-    console.log('publish');
     await app.publish(product);
-    console.log('after publish');
-    await exchange.close();
+    await broker.close();
 }
 
 main();

@@ -1,20 +1,11 @@
 stop:
-	@pm2 stop all
-
-clean:
-	@pm2 delete all
-	@pm2 flush
-	@rm -rf build/*
-
-compile:
-	@npx tsc
+	@docker-compose stop
 
 start:
-	@pm2 start build/app/abcdin.js --restart-delay 300000 --time
-	@pm2 start build/app/paris.js --restart-delay 300000 --time
-	@pm2 start build/app/falabella.js --restart-delay 300000 --time
-	@pm2 start build/app/ripley.js --restart-delay 300000 --time
-	@pm2 monit
+	@docker-compose build && docker-compose up -d
+
+start-others:
+	@docker-compose up -d rabbitmq elasticsearch kibana
 
 monitor:
-	@pm2 monit
+	@docker-compose exec scrapper pm2 monit

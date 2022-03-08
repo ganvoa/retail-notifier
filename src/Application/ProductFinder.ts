@@ -1,4 +1,5 @@
-import { Broker } from "../Domain/Broker";
+import { DirectBroker } from "../Domain/Broker";
+import { Event } from "../Domain/Event";
 import { Paginator } from "../Domain/Paginator";
 import { ProductParser } from "../Domain/ProductParser";
 import { RetailPageFetcher } from "../Domain/RetailPageFetcher";
@@ -8,11 +9,10 @@ export class ProductFinder {
         private pageFetcher: RetailPageFetcher,
         private productParser: ProductParser,
         private paginator: Paginator,
-        private exchange: Broker,
+        private broker: DirectBroker,
     ) { }
 
     async start() {
-
         try {
             let currentProductsFound = 0;
             let totalProductsFound = 0;
@@ -29,7 +29,7 @@ export class ProductFinder {
                 for (const product of products) {
                     if (product.valid) {
                         try {
-                            await this.exchange.publish(product);
+                            await this.broker.publish(Event.ProductFound, product);
                         } catch (e) {
                             console.error(e);
                         }
