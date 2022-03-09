@@ -20,7 +20,7 @@ const main = async () => {
     const httpClient = new FetchHttpClient();
     const promises = [];
     for (let key in DepartmentFalabella) {
-        const paginator = new Paginator(60, Number.POSITIVE_INFINITY, 0);
+        const paginator = new Paginator(48, Number.POSITIVE_INFINITY, 0);
         const pageFetcher = new FalabellaPageFetcher(key, httpClient);
         const productParser = new FalabellaProductParser(DepartmentFalabella[key]);
         const app = new ProductFinder(pageFetcher, productParser, paginator, broker);

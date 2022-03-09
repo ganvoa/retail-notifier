@@ -20,8 +20,9 @@ const main = async () => {
     const httpClient = new FetchHttpClient();
     const promises = [];
     for (let key in DepartmentRipley) {
-        const paginator = new Paginator(60, Number.POSITIVE_INFINITY, 0);
         const pageFetcher = new RipleyPageFetcher(key, httpClient);
+        const totalCount = await pageFetcher.getTotalCount();
+        const paginator = new Paginator(48, totalCount, 0);
         const productParser = new RipleyProductParser(DepartmentRipley[key]);
         const app = new ProductFinder(pageFetcher, productParser, paginator, broker);
         promises.push(app.start());

@@ -30,6 +30,13 @@
         },
         {
             "merge_logs": true,
+            "name": "hites",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/cli/hites-product-finder.js",
+            "restart_delay": 300000
+        },
+        {
+            "merge_logs": true,
             "name": "telegram-notifier",
             "log_date_format": "MM/DD/YYYY HH:mm:ss",
             "script": "build/app/cli/product-notify-telegram.js"
