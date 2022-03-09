@@ -29,6 +29,11 @@ services:
           limits:
             cpus: 2
             memory: 1G
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
   elasticsearch:
     container_name: retail-elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
@@ -54,6 +59,11 @@ services:
           limits:
             cpus: 2
             memory: 4G
+    healthcheck:
+      test: curl -u elastic:elastic -s -f elasticsearch:9200/_cat/health >/dev/null || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
   kibana:
     container_name: retail-kibana
     image: docker.elastic.co/kibana/kibana:7.15.0
@@ -73,6 +83,9 @@ services:
             cpus: 2
             memory: 4G
     restart: unless-stopped
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
   rabbitmq:
     container_name: retail-rabbitmq
     image: rabbitmq:3-management-alpine
@@ -96,3 +109,8 @@ services:
           limits:
             cpus: 2
             memory: 4G
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
