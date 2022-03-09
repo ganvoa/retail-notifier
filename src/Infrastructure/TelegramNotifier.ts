@@ -1,26 +1,29 @@
-import TelegramBot from "node-telegram-bot-api";
+import { HttpClient } from "../Domain/HttpClient";
 import { Notifier } from "../Domain/Notifier";
 import { Product } from "../Domain/Product";
 import { sleep } from "./Helper";
 export class TelegramNotifier implements Notifier {
 
-    private bot: TelegramBot;
-
-    constructor(token: string, private chatId: string) {
-        this.bot = new TelegramBot(token, { polling: false });
-    }
+    constructor(
+        private token: string,
+        private chatId: string,
+        private httpClient: HttpClient) { }
 
     async notify(product: Product): Promise<void> {
         const formatter = Intl.NumberFormat();
         try {
-            this.bot.sendMessage(this.chatId, `
+            const message = `
 
 <i>${product.brand}</i> 
 <b>${product.name}</b> 
 
 ${product.discountPercentage}% Descuento | $ ${formatter.format(product.minPrice)}
 
-${product.productUrl}`, { parse_mode: "HTML" });
+${product.productUrl}`;
+            await this.httpClient.post({
+                url: `https://api.telegram.org/bot${this.token}/sendMessage`,
+                body: JSON.stringify({ text: message, chat_id: this.chatId, parse_mode: "HTML" })
+            })
             await sleep(3000);
             return Promise.resolve();
         } catch (error) {
