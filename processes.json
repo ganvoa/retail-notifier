@@ -5,35 +5,35 @@
             "name": "paris",
             "log_date_format": "MM/DD/YYYY HH:mm:ss",
             "script": "build/app/cli/paris-product-finder.js",
-            "restart_delay": 300000
+            "restart_delay": 360000
         },
         {
             "merge_logs": true,
             "name": "ripley",
             "log_date_format": "MM/DD/YYYY HH:mm:ss",
             "script": "build/app/cli/ripley-product-finder.js",
-            "restart_delay": 300000
+            "restart_delay": 360000
         },
         {
             "merge_logs": true,
             "name": "falabella",
             "log_date_format": "MM/DD/YYYY HH:mm:ss",
             "script": "build/app/cli/falabella-product-finder.js",
-            "restart_delay": 300000
+            "restart_delay": 360000
         },
         {
             "merge_logs": true,
             "name": "abcdin",
             "log_date_format": "MM/DD/YYYY HH:mm:ss",
             "script": "build/app/cli/abcdin-product-finder.js",
-            "restart_delay": 300000
+            "restart_delay": 360000
         },
         {
             "merge_logs": true,
             "name": "hites",
             "log_date_format": "MM/DD/YYYY HH:mm:ss",
             "script": "build/app/cli/hites-product-finder.js",
-            "restart_delay": 300000
+            "restart_delay": 360000
         },
         {
             "merge_logs": true,
