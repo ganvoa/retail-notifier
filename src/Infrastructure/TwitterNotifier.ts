@@ -1,7 +1,7 @@
 import Twitter from "twitter-lite";
 import { Notifier } from "../Domain/Notifier";
 import { Product } from "../Domain/Product";
-import { sleep } from "./Helper";
+import { formatCLP, sleep } from "./Helper";
 
 type TwitterConfig = {
     consumerKey: string,
@@ -31,11 +31,10 @@ export class TwitterNotifier implements Notifier {
         }
 
         try {
-            const formatter = Intl.NumberFormat();
             let message = `
 ${product.name} 
 
-${product.discountPercentage}% Descuento | $ ${formatter.format(product.minPrice)}
+${product.discountPercentage}% Descuento | $ ${formatCLP(product.minPrice)}
 
 ${product.productUrl}
             

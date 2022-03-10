@@ -1,7 +1,7 @@
 import { HttpClient } from "../Domain/HttpClient";
 import { Notifier } from "../Domain/Notifier";
 import { Product } from "../Domain/Product";
-import { sleep } from "./Helper";
+import { formatCLP, sleep } from "./Helper";
 export class TelegramNotifier implements Notifier {
 
     constructor(
@@ -10,14 +10,13 @@ export class TelegramNotifier implements Notifier {
         private httpClient: HttpClient) { }
 
     async notify(product: Product): Promise<void> {
-        const formatter = Intl.NumberFormat();
         try {
             const message = `
 
 <i>${product.brand}</i> 
 <b>${product.name}</b> 
 
-${product.discountPercentage}% Descuento | $ ${formatter.format(product.minPrice)}
+${product.discountPercentage}% Descuento | $ ${formatCLP(product.minPrice)}
 
 ${product.productUrl}`;
             await this.httpClient.post({

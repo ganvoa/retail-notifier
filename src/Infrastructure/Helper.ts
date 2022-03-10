@@ -6,4 +6,8 @@ export const sleep = (ms: number): Promise<void> => {
 
 export const cleanString = (str: string): string => {
     return decode(str);
+}
+
+export const formatCLP = (amount: number): string => {
+    return Intl.NumberFormat('es-CL').format(amount);
 } 
