@@ -27,7 +27,7 @@ services:
     deploy:
       resources:
           limits:
-            cpus: 1
+            cpus: 2
             memory: 1G
     depends_on:
       elasticsearch:
@@ -57,7 +57,7 @@ services:
     deploy:
       resources:
           limits:
-            cpus: 1
+            cpus: 2
             memory: 4G
     healthcheck:
       test: curl -u elastic:elastic -s -f elasticsearch:9200/_cat/health >/dev/null || exit 1
@@ -80,7 +80,7 @@ services:
     deploy:
       resources:
           limits:
-            cpus: 1
+            cpus: 2
             memory: 4G
     restart: unless-stopped
     depends_on:
@@ -107,7 +107,7 @@ services:
     deploy:
       resources:
           limits:
-            cpus: 1
+            cpus: 2
             memory: 4G
     healthcheck:
       test: rabbitmq-diagnostics -q ping
