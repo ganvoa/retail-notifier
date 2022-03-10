@@ -32,7 +32,7 @@ export class TwitterNotifier implements Notifier {
 
         try {
             let message = `
-${product.name} 
+${product.brand} | ${product.name} 
 
 ${product.discountPercentage}% Descuento | $ ${formatCLP(product.minPrice)}
 
