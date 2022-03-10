@@ -42,16 +42,15 @@ export class AbcdinProductParser implements ProductParser {
                 normalPrice = currentPrice;
             }
 
-            const cardPriceMatch = str.match(/card-price"[\w\W]+?data-price-amount="(\d+?)"/);
+            const cardPriceMatch = str.match(/card-price"[\w\W]+?price">\$([\w\W]+?)</);
             let cardPrice = 0;
             if (null !== cardPriceMatch) {
-                cardPrice = parseInt(cardPriceMatch[1]);
+                cardPrice = parseInt(cardPriceMatch[1].replace(/\./g, ""));
             } else {
                 cardPrice = currentPrice;
             }
 
-            const exclusivePrice = cardPrice;
-            const minPrice = Math.min(currentPrice, normalPrice, exclusivePrice);
+            const minPrice = Math.min(currentPrice, normalPrice, cardPrice);
             const discountPercentage = Math.round(100 - minPrice * 100 / normalPrice);
 
             products.push(
@@ -63,7 +62,7 @@ export class AbcdinProductParser implements ProductParser {
                     brand: cleanString(brand.trim()),
                     currentPrice: currentPrice,
                     normalPrice: normalPrice,
-                    exclusivePrice: exclusivePrice,
+                    exclusivePrice: cardPrice,
                     minPrice: minPrice,
                     discountPercentage: discountPercentage,
                     productUrl: productUrl,
