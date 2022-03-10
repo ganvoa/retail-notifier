@@ -24,11 +24,11 @@ export class FalabellaProductParser implements ProductParser {
 
             for (const price of obj.prices) {
                 if (price.type == "normalPrice") {
-                    normalPrice = parseInt(price.price[0].replace('.', ''));
+                    normalPrice = parseInt(price.price[0].replaceAll('.', ''));
                 } else if (price.type == "internetPrice" || price.type == "eventPrice") {
-                    currentPrice = parseInt(price.price[0].replace('.', ''));
+                    currentPrice = parseInt(price.price[0].replaceAll('.', ''));
                 } else if (price.type == "cmrPrice") {
-                    exclusivePrice = parseInt(price.price[0].replace('.', ''));
+                    exclusivePrice = parseInt(price.price[0].replaceAll('.', ''));
                 }
             }
 

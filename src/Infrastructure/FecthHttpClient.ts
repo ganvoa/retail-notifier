@@ -96,7 +96,10 @@ export class FetchHttpClient implements HttpClient {
                             body: ''
                         });
                     }
-                    return reject(e.response);
+                    return resolve({
+                        statusCode: 0,
+                        body: ''
+                    });
                 }
             }
         });

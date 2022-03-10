@@ -41,7 +41,7 @@ services:
       - xpack.security.enabled=false
       - discovery.type=single-node
     volumes:
-      - /home/gamboa/dev/env/docker-persistence/elasticsearch:/usr/share/elasticsearch/data
+      - ./docker/elasticsearch:/usr/share/elasticsearch/data
     ulimits:
       memlock:
         soft: -1
@@ -58,7 +58,7 @@ services:
       resources:
           limits:
             cpus: 2
-            memory: 4G
+            memory: 3G
     healthcheck:
       test: curl -u elastic:elastic -s -f elasticsearch:9200/_cat/health >/dev/null || exit 1
       interval: 10s
@@ -81,7 +81,7 @@ services:
       resources:
           limits:
             cpus: 2
-            memory: 4G
+            memory: 2G
     restart: unless-stopped
     depends_on:
       elasticsearch:
@@ -108,7 +108,7 @@ services:
       resources:
           limits:
             cpus: 2
-            memory: 4G
+            memory: 3G
     healthcheck:
       test: rabbitmq-diagnostics -q ping
       interval: 10s
