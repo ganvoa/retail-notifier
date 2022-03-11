@@ -22,5 +22,7 @@ productNotifier.handle({
     productUrl: 'https://www.abcdin.cl/parlante-bluetooth-huawei-sound-ais-bw80-00-negro-1147871',
     valid: true,
     department: Department.Tecnologia,
-    timestamp: Date.now()
+    timestamp: Date.now(),
+    shouldNotify: true,
+    shouldStore: true
 });

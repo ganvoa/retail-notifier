@@ -8,9 +8,10 @@ export class FakeDirectBroker implements DirectBroker {
         return Promise.resolve();
     }
 
-    async publish<T>(event: Event, message: T): Promise<void> {
-        console.log(message);
-        await sleep(1000);
+    async publish<T>(event: Event, message: any): Promise<void> {
+        if (message.discountPercentage >= 75) {
+            console.log(`${message.productId};${message.discountPercentage};${message.minPrice};${message.name};${message.productUrl}`);
+        }
         return Promise.resolve();
     }
 
