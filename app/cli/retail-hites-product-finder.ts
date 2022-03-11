@@ -1,7 +1,7 @@
 import { Paginator } from '../../src/Domain/Paginator';
 import { FetchHttpClient } from '../../src/Infrastructure/FecthHttpClient';
 import { HitesPageFetcher } from '../../src/Infrastructure/Retail/HitesPageFetcher';
-import { HitesProductParser } from '../../src/Infrastructure/HitesProductParser';
+import { HitesProductParser } from '../../src/Infrastructure/Retail/HitesProductParser';
 import { RabbitDirectBroker } from '../../src/Infrastructure/RabbitDirectBroker';
 import { ProductFinder } from '../../src/Application/ProductFinder';
 import config from '../config';
