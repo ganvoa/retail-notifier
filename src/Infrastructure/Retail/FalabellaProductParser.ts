@@ -2,11 +2,12 @@ import { Department } from "../../Domain/Department";
 import { Product } from "../../Domain/Product";
 import { ProductParser } from "../../Domain/ProductParser";
 import { Retail } from "../../Domain/Retail";
+import { RetailDepartment } from "../../Domain/RetailDepartment";
 import { cleanString } from "../Helper";
 
 export class FalabellaProductParser implements ProductParser {
 
-    constructor(private department: Department) { }
+    constructor(private department: RetailDepartment) { }
 
     getAll(content: string): Product[] {
         const products: Product[] = [];
@@ -64,7 +65,7 @@ export class FalabellaProductParser implements ProductParser {
                     discountPercentage: discountPercentage,
                     productUrl: obj.url,
                     valid: true,
-                    department: this.department,
+                    department: this.department.department,
                     timestamp: Date.now()
                 }
             );
