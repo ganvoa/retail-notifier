@@ -26,7 +26,7 @@ export class RipleyProductParser implements ProductParser {
             const discountPercentage = Math.round(100 - minPrice * 100 / normalPrice);
 
             let productUrl = obj.url;
-            if (productUrl === undefined || productUrl === '') {
+            if (productUrl == undefined || productUrl === '') {
                 productUrl = `https://simple.ripley.cl/${obj.productString}`;
             }
 

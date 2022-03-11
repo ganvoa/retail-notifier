@@ -13,14 +13,14 @@ export class ProductPersister implements ProductHandler {
 
     async handle(product: Product) {
 
-        if (product.productUrl === undefined) {
+        if (product.productUrl == undefined) {
             console.log(`product without url: ${product.retailId}`);
             return Promise.resolve();
         }
 
         const productAlreadyExists = await this.repository.find(product.productId, product.retailId, product.minPrice);
-        if (productAlreadyExists === undefined && product.shouldStore) {
-            console.log(`storing product: ${product.retailId};${product.name};${product.productUrl}`);
+        if (productAlreadyExists == undefined && product.shouldStore) {
+            console.log(`storing product: ${product.discountPercentage};${product.shouldNotify};${product.retailId};${product.name};${product.productUrl}`);
             await this.repository.save(product);
             await this.broker.publish<Product>(Event.ProductStored, product);
         }
