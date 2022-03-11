@@ -5,7 +5,7 @@ import { HitesProductParser } from '../../src/Infrastructure/Retail/HitesProduct
 import { RabbitDirectBroker } from '../../src/Infrastructure/RabbitDirectBroker';
 import { ProductFinder } from '../../src/Application/ProductFinder';
 import config from '../config';
-import { DepartmentHites } from '../../src/Domain/DepartmentHites';
+import { Hites } from '../../src/Infrastructure/Retail/Hites';
 
 const main = async () => {
 
@@ -19,10 +19,11 @@ const main = async () => {
     await broker.setup();
     const httpClient = new FetchHttpClient();
     const promises = [];
-    for (let key in DepartmentHites) {
-        const paginator = new Paginator(48, Number.POSITIVE_INFINITY, 0);
-        const pageFetcher = new HitesPageFetcher(key, httpClient);
-        const productParser = new HitesProductParser(DepartmentHites[key]);
+    for (const department of Hites.DEPARTMENTS) {
+        const pageFetcher = new HitesPageFetcher(department, httpClient);
+        const totalCount = await pageFetcher.getTotalCount();
+        const paginator = new Paginator(Hites.ITEMS_PER_PAGE, totalCount);
+        const productParser = new HitesProductParser(department);
         const app = new ProductFinder(pageFetcher, productParser, paginator, broker);
         promises.push(app.start());
     }

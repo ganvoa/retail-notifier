@@ -1,4 +1,3 @@
-import { Department } from "../../Domain/Department";
 import { Product } from "../../Domain/Product";
 import { ProductParser } from "../../Domain/ProductParser";
 import { Retail } from "../../Domain/Retail";
