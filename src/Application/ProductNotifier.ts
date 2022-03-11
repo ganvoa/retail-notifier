@@ -9,7 +9,7 @@ export class ProductNotifier implements ProductHandler {
 
     async handle(product: Product): Promise<void> {
         if (product.shouldNotify) {
-            console.log(`product notifying: ${product.retailId};${product.shouldNotify};${product.name};${product.productUrl}`);
+            console.log(`product notifying: ${product.retailId};${product.shouldNotify};${product.discountPercentage};${product.name};${product.productUrl}`);
             await this.notifier.notify(product);
         }
         return Promise.resolve();
