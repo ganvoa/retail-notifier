@@ -20,14 +20,16 @@ export class FetchHttpClient implements HttpClient {
                 })
             } catch (e: any) {
 
-                if (e.response.status == 429) {
-                    console.log('waiting 120 seconds...');
-                    await sleep(120000);
-                } else if (e.response.status >= 400) {
-                    return resolve({
-                        statusCode: 400,
-                        body: ''
-                    });
+                if (e.hasOwnProperty("response")) {
+                    if (e.response.status == 429) {
+                        console.log('quota exceeded, waiting 120 seconds...');
+                        await sleep(120000);
+                    } else {
+                        return resolve({
+                            statusCode: e.response.status,
+                            body: ''
+                        });
+                    }
                 }
 
                 try {
@@ -41,18 +43,22 @@ export class FetchHttpClient implements HttpClient {
                         body: data
                     })
                 } catch (e: any) {
-                    if (e.response.status >= 400) {
+                    if (e.hasOwnProperty("response")) {
                         return resolve({
-                            statusCode: 400,
+                            statusCode: e.response.status,
+                            body: ''
+                        });
+                    } else {
+                        return resolve({
+                            statusCode: 0,
                             body: ''
                         });
                     }
-                    return reject(e.response);
                 }
             }
         });
     }
-    
+
     async post(req: HttpRequest): Promise<HttpResponse> {
         return new Promise(async (resolve, reject) => {
             try {
@@ -68,14 +74,16 @@ export class FetchHttpClient implements HttpClient {
                 })
             } catch (e: any) {
 
-                if (e.response.status == 429) {
-                    console.log('waiting 120 seconds...');
-                    await sleep(120000);
-                } else if (e.response.status >= 400) {
-                    return resolve({
-                        statusCode: 400,
-                        body: ''
-                    });
+                if (e.hasOwnProperty("response")) {
+                    if (e.response.status == 429) {
+                        console.log('quota exceeded, waiting 120 seconds...');
+                        await sleep(120000);
+                    } else {
+                        return resolve({
+                            statusCode: e.response.status,
+                            body: ''
+                        });
+                    }
                 }
 
                 try {
@@ -90,16 +98,17 @@ export class FetchHttpClient implements HttpClient {
                         body: data
                     })
                 } catch (e: any) {
-                    if (e.response.status >= 400) {
+                    if (e.hasOwnProperty("response")) {
                         return resolve({
-                            statusCode: 400,
+                            statusCode: e.response.status,
+                            body: ''
+                        });
+                    } else {
+                        return resolve({
+                            statusCode: 0,
                             body: ''
                         });
                     }
-                    return resolve({
-                        statusCode: 0,
-                        body: ''
-                    });
                 }
             }
         });
