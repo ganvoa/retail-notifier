@@ -8,8 +8,10 @@ export class ProductNotifier implements ProductHandler {
     ) { }
 
     async handle(product: Product): Promise<void> {
-        console.log(`notifying product ${product.name}...`);
-        await this.notifier.notify(product);
+        if (product.shouldNotify) {
+            console.log(`product notifying: ${product.retailId};${product.name};${product.productUrl}`);
+            await this.notifier.notify(product);
+        }
         return Promise.resolve();
     }
 }

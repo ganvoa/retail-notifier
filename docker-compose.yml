@@ -14,8 +14,6 @@ services:
       - TELEGRAM_CHANNEL_ID
       - ELASTICSEARCH_INDEX
       - ELASTICSEARCH_HOST=http://elasticsearch:9200
-      - APP_DISCOUNT
-      - SHOULD_NOTIFY
       - RABBIT_EXCHANGE_NAME
       - RABBIT_FQDN=amqp://retail:retail@rabbitmq:5672
     restart: unless-stopped

@@ -12,8 +12,6 @@ interface Config {
     TWITTER_ACCESS_TOKEN_SECRET: string;
     RABBIT_EXCHANGE_NAME: string;
     RABBIT_FQDN: string;
-    APP_DISCOUNT: number;
-    SHOULD_NOTIFY: boolean;
 }
 
 const getConfig = (): Config => {
@@ -27,9 +25,7 @@ const getConfig = (): Config => {
         TWITTER_API_KEY: process.env.TWITTER_API_KEY || "-",
         TWITTER_API_KEY_SECRET: process.env.TWITTER_API_KEY_SECRET || "-",
         TWITTER_ACCESS_TOKEN: process.env.TWITTER_ACCESS_TOKEN || "-",
-        TWITTER_ACCESS_TOKEN_SECRET: process.env.TWITTER_ACCESS_TOKEN_SECRET || "-",
-        APP_DISCOUNT: process.env.APP_DISCOUNT ? parseInt(process.env.APP_DISCOUNT) : 50,
-        SHOULD_NOTIFY: process.env.SHOULD_NOTIFY ? process.env.SHOULD_NOTIFY == 'true' : false,
+        TWITTER_ACCESS_TOKEN_SECRET: process.env.TWITTER_ACCESS_TOKEN_SECRET || "-"
     };
 };
 

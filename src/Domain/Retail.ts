@@ -4,4 +4,5 @@ export enum Retail {
     Falabella = "falabella",
     Ripley = "ripley",
     Hites = "hites",
+    Lider = "lider",
 }

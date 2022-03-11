@@ -75,9 +75,11 @@ export class ParisProductParser implements ProductParser {
                     minPrice: minPrice,
                     discountPercentage: discountPercentage,
                     productUrl: itemUrl,
-                    valid: (productSeller === "Paris.cl"),
                     department: this.department.department,
-                    timestamp: Date.now()
+                    timestamp: Date.now(),
+                    valid: (productSeller === "Paris.cl"),
+                    shouldStore: true,
+                    shouldNotify: discountPercentage >= this.department.minDiscount,
                 }
             );
         });

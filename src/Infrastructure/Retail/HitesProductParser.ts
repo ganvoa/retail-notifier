@@ -64,9 +64,11 @@ export class HitesProductParser implements ProductParser {
                     minPrice: minPrice,
                     discountPercentage: discountPercentage,
                     productUrl: productUrl,
-                    valid: valid,
                     department: this.department.department,
-                    timestamp: Date.now()
+                    timestamp: Date.now(),
+                    valid: valid,
+                    shouldStore: true,
+                    shouldNotify: discountPercentage >= this.department.minDiscount,
                 }
             );
         });

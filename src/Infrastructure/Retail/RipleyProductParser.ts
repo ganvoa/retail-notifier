@@ -38,14 +38,16 @@ export class RipleyProductParser implements ProductParser {
                     imageUrl: obj.thumbnail ? "https:" + obj.thumbnail : undefined,
                     brand: cleanString(obj.manufacturer ? obj.manufacturer.trim() : '-'),
                     productUrl: productUrl,
-                    valid: !obj.isMarketplaceProduct,
                     department: this.department.department,
-                    timestamp: Date.now(),
                     currentPrice: currentPrice,
                     normalPrice: normalPrice,
                     exclusivePrice: exclusivePrice,
                     minPrice: minPrice,
                     discountPercentage: discountPercentage,
+                    timestamp: Date.now(),
+                    valid: !obj.isMarketplaceProduct,
+                    shouldStore: true,
+                    shouldNotify: discountPercentage >= this.department.minDiscount,
                 }
             );
         }

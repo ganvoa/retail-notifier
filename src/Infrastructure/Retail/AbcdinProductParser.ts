@@ -67,8 +67,10 @@ export class AbcdinProductParser implements ProductParser {
                     discountPercentage: discountPercentage,
                     productUrl: productUrl,
                     department: this.department.department,
+                    timestamp: Date.now(),
                     valid: true,
-                    timestamp: Date.now()
+                    shouldStore: true,
+                    shouldNotify: discountPercentage >= this.department.minDiscount,
                 }
             );
         });
