@@ -1,8 +1,8 @@
-import { Department } from "../Domain/Department";
-import { Product } from "../Domain/Product";
-import { ProductParser } from "../Domain/ProductParser";
-import { Retail } from "../Domain/Retail";
-import { cleanString } from "./Helper";
+import { Department } from "../../Domain/Department";
+import { Product } from "../../Domain/Product";
+import { ProductParser } from "../../Domain/ProductParser";
+import { Retail } from "../../Domain/Retail";
+import { cleanString } from "../Helper";
 
 export class FalabellaProductParser implements ProductParser {
 

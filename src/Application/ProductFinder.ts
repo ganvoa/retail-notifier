@@ -2,11 +2,11 @@ import { DirectBroker } from "../Domain/Broker";
 import { Event } from "../Domain/Event";
 import { Paginator } from "../Domain/Paginator";
 import { ProductParser } from "../Domain/ProductParser";
-import { RetailPageFetcher } from "../Domain/RetailPageFetcher";
+import { PageFetcher } from "../Domain/PageFetcher";
 
 export class ProductFinder {
     constructor(
-        private pageFetcher: RetailPageFetcher,
+        private pageFetcher: PageFetcher,
         private productParser: ProductParser,
         private paginator: Paginator,
         private broker: DirectBroker,

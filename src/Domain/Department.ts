@@ -6,7 +6,7 @@ export enum Department {
     Muebles = 'muebles',
     Electro = 'electro',
     Dormitorio = 'dormitorio',
-    LineaBlanca = 'linea-blanca',
+    LineaBlanca = 'lineablanca',
     Mascotas = 'mascotas',
     Deportes = 'deportes',
 }

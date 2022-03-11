@@ -3,8 +3,8 @@ import { FetchHttpClient } from '../../src/Infrastructure/FecthHttpClient';
 import { RabbitDirectBroker } from '../../src/Infrastructure/RabbitDirectBroker';
 import { ProductFinder } from '../../src/Application/ProductFinder';
 import { DepartmentFalabella } from '../../src/Domain/DepartmentFalabella';
-import { FalabellaPageFetcher } from '../../src/Infrastructure/FalabellaPageFetcher';
-import { FalabellaProductParser } from '../../src/Infrastructure/FalabellaProductParser';
+import { FalabellaPageFetcher } from '../../src/Infrastructure/Retail/FalabellaPageFetcher';
+import { FalabellaProductParser } from '../../src/Infrastructure/Retail/FalabellaProductParser';
 import config from '../config';
 
 const main = async () => {

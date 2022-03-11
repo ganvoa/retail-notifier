@@ -1,8 +1,8 @@
-import { HttpClient } from "../Domain/HttpClient";
-import { RetailPageFetcher } from "../Domain/RetailPageFetcher";
-import { sleep } from "./Helper";
+import { HttpClient } from "../../Domain/HttpClient";
+import { PageFetcher } from "../../Domain/PageFetcher";
+import { sleep } from "../Helper";
 
-export class RipleyPageFetcher implements RetailPageFetcher {
+export class RipleyPageFetcher implements PageFetcher {
 
     constructor(
         private department: string,
