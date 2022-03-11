@@ -1,20 +1,20 @@
-import { ProductFoundPublisher } from '../../src/Application/ProductFoundPublisher';
+import { ProductStoredPublisher } from '../../src/Application/ProductStoredPublisher';
 import { Department } from '../../src/Domain/Department';
 import { Product } from '../../src/Domain/Product';
 import { Retail } from '../../src/Domain/Retail';
-import { RabbitDirectBroker } from '../../src/Infrastructure/RabbitDirectBroker';
-import config from '../config';
+import { RabbitFanoutBroker } from '../../src/Infrastructure/RabbitFanoutBroker';
+import config from '../../app/config';
 
 const main = async () => {
 
-    const broker = new RabbitDirectBroker(
+    const broker = new RabbitFanoutBroker(
         {
             fqdn: config.RABBIT_FQDN,
             exchangeName: config.RABBIT_EXCHANGE_NAME
         }
     );
     await broker.setup();
-    const app = new ProductFoundPublisher(broker);
+    const app = new ProductStoredPublisher(broker);
     const product: Product = {
         productId: '1234567',
         brand: 'generic',
@@ -29,7 +29,9 @@ const main = async () => {
         timestamp: Date.now(),
         valid: true,
         imageUrl: `https://home.ripley.cl/store/Attachment/WOP/D328/2000374180238/2000374180238_2.jpg`,
-        productUrl: `https://simple.ripley.cl/set-body-secret-mandala-2000374180238p`
+        productUrl: `https://simple.ripley.cl/set-body-secret-mandala-2000374180238p`,
+        shouldNotify: false,
+        shouldStore: true
     }
     await app.publish(product);
     await broker.close();
