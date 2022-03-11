@@ -35,7 +35,7 @@ export class RipleyProductParser implements ProductParser {
                     retailId: Retail.Ripley,
                     productId: obj.uniqueID,
                     name: cleanString(obj.name.trim()),
-                    imageUrl: obj.thumbnail ? "https://" + obj.thumbnail : undefined,
+                    imageUrl: obj.thumbnail ? "https:" + obj.thumbnail : undefined,
                     brand: cleanString(obj.manufacturer ? obj.manufacturer.trim() : '-'),
                     productUrl: productUrl,
                     valid: !obj.isMarketplaceProduct,
