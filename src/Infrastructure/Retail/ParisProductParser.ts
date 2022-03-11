@@ -78,7 +78,7 @@ export class ParisProductParser implements ProductParser {
                     department: this.department.department,
                     timestamp: Date.now(),
                     valid: (productSeller === "Paris.cl"),
-                    shouldStore: true,
+                    shouldStore: discountPercentage >= 50,
                     shouldNotify: discountPercentage >= this.department.minDiscount,
                 }
             );

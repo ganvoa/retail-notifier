@@ -66,7 +66,7 @@ export class FalabellaProductParser implements ProductParser {
                     department: this.department.department,
                     timestamp: Date.now(),
                     valid: true,
-                    shouldStore: true,
+                    shouldStore: discountPercentage >= 50,
                     shouldNotify: discountPercentage >= this.department.minDiscount,
                 }
             );

@@ -53,7 +53,7 @@ export class LiderProductParser implements ProductParser {
                     department: this.department.department,
                     timestamp: Date.now(),
                     valid: product.available,
-                    shouldStore: true,
+                    shouldStore: discountPercentage >= 50,
                     shouldNotify: discountPercentage >= this.department.minDiscount,
                 }
             );

@@ -67,7 +67,7 @@ export class HitesProductParser implements ProductParser {
                     department: this.department.department,
                     timestamp: Date.now(),
                     valid: valid,
-                    shouldStore: true,
+                    shouldStore: discountPercentage >= 50,
                     shouldNotify: discountPercentage >= this.department.minDiscount,
                 }
             );
