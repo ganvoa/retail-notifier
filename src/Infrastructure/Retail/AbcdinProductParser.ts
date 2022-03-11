@@ -52,14 +52,14 @@ export class AbcdinProductParser implements ProductParser {
 
             const minPrice = Math.min(currentPrice, normalPrice, cardPrice);
             const discountPercentage = Math.round(100 - minPrice * 100 / normalPrice);
-
+            let currentBrand = cleanString(brand.trim()).includes("span") ? "-" : cleanString(brand.trim());
             products.push(
                 {
                     retailId: Retail.Abcdin,
                     productId: productId,
                     name: cleanString(name.trim()),
                     imageUrl: imageUrl,
-                    brand: cleanString(brand.trim()),
+                    brand: currentBrand,
                     currentPrice: currentPrice,
                     normalPrice: normalPrice,
                     exclusivePrice: cardPrice,
