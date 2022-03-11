@@ -9,6 +9,13 @@
         },
         {
             "merge_logs": true,
+            "name": "retail-lider",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/cli/retail-lider-product-finder.js",
+            "restart_delay": 360000
+        },
+        {
+            "merge_logs": true,
             "name": "retail-ripley",
             "log_date_format": "MM/DD/YYYY HH:mm:ss",
             "script": "build/app/cli/retail-ripley-product-finder.js",
