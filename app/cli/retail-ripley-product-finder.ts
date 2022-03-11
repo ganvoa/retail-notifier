@@ -2,10 +2,10 @@ import { Paginator } from '../../src/Domain/Paginator';
 import { FetchHttpClient } from '../../src/Infrastructure/FecthHttpClient';
 import { RabbitDirectBroker } from '../../src/Infrastructure/RabbitDirectBroker';
 import { ProductFinder } from '../../src/Application/ProductFinder';
-import { DepartmentRipley } from '../../src/Domain/DepartmentRipley';
 import { RipleyPageFetcher } from '../../src/Infrastructure/Retail/RipleyPageFetcher';
 import { RipleyProductParser } from '../../src/Infrastructure/Retail/RipleyProductParser';
 import config from '../config';
+import { Ripley } from '../../src/Infrastructure/Retail/Ripley';
 
 const main = async () => {
 
@@ -19,11 +19,11 @@ const main = async () => {
     await broker.setup();
     const httpClient = new FetchHttpClient();
     const promises = [];
-    for (let key in DepartmentRipley) {
-        const pageFetcher = new RipleyPageFetcher(key, httpClient);
+    for (const department of Ripley.DEPARTMENTS) {
+        const pageFetcher = new RipleyPageFetcher(department, httpClient);
         const totalCount = await pageFetcher.getTotalCount();
-        const paginator = new Paginator(48, totalCount, 0);
-        const productParser = new RipleyProductParser(DepartmentRipley[key]);
+        const paginator = new Paginator(Ripley.ITEMS_PER_PAGE, totalCount);
+        const productParser = new RipleyProductParser(department);
         const app = new ProductFinder(pageFetcher, productParser, paginator, broker);
         promises.push(app.start());
     }
