@@ -16,6 +16,13 @@
         },
         {
             "merge_logs": true,
+            "name": "retail-lapolar",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/cli/retail-lapolar-product-finder.js",
+            "restart_delay": 360000
+        },
+        {
+            "merge_logs": true,
             "name": "retail-ripley",
             "log_date_format": "MM/DD/YYYY HH:mm:ss",
             "script": "build/app/cli/retail-ripley-product-finder.js",
