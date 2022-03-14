@@ -19,7 +19,6 @@ export class FetchHttpClient implements HttpClient {
                     body: data
                 })
             } catch (e: any) {
-                console.error(e);
                 if (e && e.response && e.response.status) {
                     if (e.response.status == 429) {
                         console.log('quota exceeded, waiting 120 seconds...');
@@ -43,7 +42,6 @@ export class FetchHttpClient implements HttpClient {
                         body: data
                     })
                 } catch (e: any) {
-                    console.error(e);
                     if (e && e.response && e.response.status) {
                         return resolve({
                             statusCode: e.response.status,
