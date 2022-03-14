@@ -5,22 +5,34 @@ import { Abcdin } from '../../src/Infrastructure/Retail/Abcdin';
 import { AbcdinPageFetcher } from '../../src/Infrastructure/Retail/AbcdinPageFetcher';
 import { AbcdinProductParser } from '../../src/Infrastructure/Retail/AbcdinProductParser';
 import { FakeDirectBroker } from '../Infrastructure/FakeDirectBroker';
+import { Department } from '../../src/Domain/Department';
 
-const main = async () => {
-    const broker = new FakeDirectBroker();
+const main = async (minToShow: number, slug: string) => {
+    const broker = new FakeDirectBroker(minToShow);
     await broker.setup();
     const httpClient = new FetchHttpClient();
-    const promises = [];
-    for (const department of Abcdin.DEPARTMENTS) {
-        const pageFetcher = new AbcdinPageFetcher(department, httpClient);
-        const totalCount = await pageFetcher.getTotalCount();
-        const productParser = new AbcdinProductParser(department);
-        const paginator = new Paginator(Abcdin.ITEMS_PER_PAGE, totalCount);
-        const app = new ProductFinder(pageFetcher, productParser, paginator, broker);
-        promises.push(app.start());
-    }
-    await Promise.all(promises);
+    let department = {
+        iterable: true,
+        department: Department.Muebles,
+        minDiscount: 50,
+        slug: slug
+    };
+    const pageFetcher = new AbcdinPageFetcher(department, httpClient);
+    const totalCount = await pageFetcher.getTotalCount();
+    const productParser = new AbcdinProductParser(department);
+    const paginator = new Paginator(Abcdin.ITEMS_PER_PAGE, totalCount);
+    const app = new ProductFinder(pageFetcher, productParser, paginator, broker);
+    await app.start()
     await broker.close();
 }
 
-main();
+const args = process.argv.slice(2);
+if (args.length != 2) {
+    console.error(`should specify args: <minToShow> <slug>`);
+    process.exit(1);
+}
+
+const minToShow: number = parseInt(args[0]);
+const slug: string = args[1];
+
+main(minToShow, slug);

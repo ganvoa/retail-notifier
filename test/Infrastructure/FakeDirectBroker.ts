@@ -4,13 +4,15 @@ import { sleep } from "../../src/Infrastructure/Helper";
 
 export class FakeDirectBroker implements DirectBroker {
 
+    constructor(private minToShow: number) { }
+
     async setup() {
         return Promise.resolve();
     }
 
     async publish<T>(event: Event, message: any): Promise<void> {
-        if (message.discountPercentage >= 50) {
-            console.log(`${message.productId};${message.discountPercentage};${message.minPrice};${message.brand};`);
+        if (message.discountPercentage >= this.minToShow) {
+            console.log(`${message.productId};${message.discountPercentage};${message.minPrice};${message.brand};${message.name};${message.productUrl}`);
         }
         return Promise.resolve();
     }

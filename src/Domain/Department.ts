@@ -1,4 +1,5 @@
 export enum Department {
+    Zapatillas = 'zapatillas',
     Belleza = 'belleza',
     Mujer = 'mujer',
     Hombre = 'hombre',

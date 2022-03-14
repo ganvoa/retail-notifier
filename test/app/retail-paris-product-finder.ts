@@ -1,27 +1,38 @@
 import { Paginator } from '../../src/Domain/Paginator';
 import { FetchHttpClient } from '../../src/Infrastructure/FecthHttpClient';
-import { ParisPageFetcher } from '../../src/Infrastructure/Retail/ParisPageFetcher';
-import { ParisProductParser } from '../../src/Infrastructure/Retail/ParisProductParser';
 import { ProductFinder } from '../../src/Application/ProductFinder';
 import { Paris } from '../../src/Infrastructure/Retail/Paris';
+import { ParisPageFetcher } from '../../src/Infrastructure/Retail/ParisPageFetcher';
+import { ParisProductParser } from '../../src/Infrastructure/Retail/ParisProductParser';
 import { FakeDirectBroker } from '../Infrastructure/FakeDirectBroker';
+import { Department } from '../../src/Domain/Department';
 
-const main = async () => {
-
-    const broker = new FakeDirectBroker();
+const main = async (minToShow: number, slug: string) => {
+    const broker = new FakeDirectBroker(minToShow);
     await broker.setup();
     const httpClient = new FetchHttpClient();
-    const promises = [];
-    for (const department of Paris.DEPARTMENTS) {
-        const pageFetcher = new ParisPageFetcher(department, httpClient);
-        const totalCount = await pageFetcher.getTotalCount();
-        const paginator = new Paginator(Paris.ITEMS_PER_PAGE, totalCount);
-        const productParser = new ParisProductParser(department);
-        const app = new ProductFinder(pageFetcher, productParser, paginator, broker);
-        promises.push(app.start());
-    }
-    await Promise.all(promises);
+    let department = {
+        iterable: true,
+        department: Department.Muebles,
+        minDiscount: 50,
+        slug: slug
+    };
+    const pageFetcher = new ParisPageFetcher(department, httpClient);
+    const totalCount = await pageFetcher.getTotalCount();
+    const productParser = new ParisProductParser(department);
+    const paginator = new Paginator(Paris.ITEMS_PER_PAGE, totalCount);
+    const app = new ProductFinder(pageFetcher, productParser, paginator, broker);
+    await app.start()
     await broker.close();
 }
 
-main();
+const args = process.argv.slice(2);
+if (args.length != 2) {
+    console.error(`should specify args: <minToShow> <slug>`);
+    process.exit(1);
+}
+
+const minToShow: number = parseInt(args[0]);
+const slug: string = args[1];
+
+main(minToShow, slug);

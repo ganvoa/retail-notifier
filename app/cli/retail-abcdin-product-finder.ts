@@ -20,7 +20,11 @@ const main = async () => {
         const app = new ProductFinder(pageFetcher, productParser, paginator, broker);
         promises.push(app.start());
     }
-    await Promise.all(promises);
+    try {
+        await Promise.all(promises);
+    } catch(e) {
+        console.error(e);
+    }
     await broker.close();
 }
 
