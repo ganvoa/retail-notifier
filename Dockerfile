@@ -9,4 +9,5 @@ COPY app app
 COPY tsconfig.json .
 COPY processes.json .
 RUN tsc
+ENV TZ America/Santiago
 CMD ["pm2", "start", "--no-daemon", "processes.json"]
