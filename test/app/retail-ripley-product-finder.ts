@@ -14,7 +14,7 @@ const main = async (minToShow: number, slug: string) => {
     let department = {
         iterable: true,
         department: Department.Muebles,
-        minDiscount: 50,
+        minDiscount: 60,
         slug: slug
     };
     const pageFetcher = new RipleyPageFetcher(department, httpClient);
