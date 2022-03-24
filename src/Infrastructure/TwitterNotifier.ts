@@ -26,19 +26,25 @@ export class TwitterNotifier implements Notifier {
     }
 
     async notify(product: Product): Promise<void> {
+
+        if (!product.shouldNotify) {
+            return Promise.resolve();
+        }
+
         if (product.productUrl == undefined) {
             return Promise.resolve();
         }
 
         try {
+            console.log(`notifying: ${product.retailId};${product.shouldNotify};${product.discountPercentage};${product.name};${product.productUrl}`);
             let message = `
 ${product.brand} | ${product.name} 
 
 ${product.discountPercentage}% Descuento | $ ${formatCLP(product.minPrice)}
 
 ${product.productUrl}
-            
-#${product.retailId} #${product.department} #oferta #descuento`;
+
+            #${product.retailId} #${product.department} #oferta #descuento`;
             await this.client.post('statuses/update', { status: message });
             await sleep(5000);
             return Promise.resolve();
