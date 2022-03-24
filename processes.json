@@ -66,6 +66,12 @@
             "name": "product-store",
             "log_date_format": "MM/DD/YYYY HH:mm:ss",
             "script": "build/app/cli/product-store.js"
+        },
+        {
+            "merge_logs": true,
+            "name": "product-force-twitter",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/cli/telegram-updates.js"
         }
     ]
 }

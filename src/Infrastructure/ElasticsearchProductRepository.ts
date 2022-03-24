@@ -20,6 +20,15 @@ export class ElasticsearchProductRepository implements ProductRepository {
         return Promise.resolve();
     }
 
+    async update(product: Product): Promise<void> {
+        await this.client.update({
+            index: this.index,
+            doc: product,
+            id: `${product.retailId}-${product.productId}-${product.minPrice}`
+        });
+        return Promise.resolve();
+    }
+
     async find(productId: string, retail: Retail, minPrice: number): Promise<Product | undefined> {
         try {
             const result = await this.client.get<Product>({

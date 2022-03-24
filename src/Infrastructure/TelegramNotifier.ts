@@ -11,6 +11,20 @@ export class TelegramNotifier implements Notifier {
 
     async notify(product: Product): Promise<void> {
         try {
+            const productId = `${product.retailId}-${product.productId}-${product.minPrice}`;
+            let reply = null;
+            if (!product.shouldNotify) {
+                reply = {
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{
+                                text: "📢 Twittear",
+                                callback_data: productId
+                            }]
+                        ]
+                    }
+                };
+            }
             const message = `
 
 <i>${product.brand}</i> 
@@ -21,8 +35,13 @@ ${product.discountPercentage}% Descuento | $ ${formatCLP(product.minPrice)}
 ${product.productUrl}`;
             await this.httpClient.post({
                 url: `https://api.telegram.org/bot${this.token}/sendMessage`,
-                body: JSON.stringify({ text: message, chat_id: this.chatId, parse_mode: "HTML" })
-            })
+                body: JSON.stringify({
+                    ...reply,
+                    text: message,
+                    chat_id: this.chatId,
+                    parse_mode: "HTML"
+                })
+            });
             await sleep(3000);
             return Promise.resolve();
         } catch (error) {
