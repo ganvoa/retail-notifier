@@ -55,7 +55,7 @@ export class LaPolarProductParser implements ProductParser {
             }
 
             if (cardPrice == 0) {
-                normalPrice = currentPrice;
+                cardPrice = currentPrice;
             }
 
             const minPrice = Math.min(currentPrice, normalPrice, cardPrice);
