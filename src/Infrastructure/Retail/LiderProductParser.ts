@@ -52,7 +52,7 @@ export class LiderProductParser implements ProductParser {
                     productUrl: `https://www.lider.cl/catalogo/product/sku/${product.sku}/${product.slug}`,
                     department: this.department.department,
                     timestamp: Date.now(),
-                    valid: product.available,
+                    valid: product.available && minPrice > 0,
                     shouldStore: discountPercentage >= 50,
                     shouldNotify: discountPercentage >= this.department.minDiscount,
                 }

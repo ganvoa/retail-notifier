@@ -77,7 +77,7 @@ export class ParisProductParser implements ProductParser {
                     productUrl: itemUrl,
                     department: this.department.department,
                     timestamp: Date.now(),
-                    valid: (productSeller === "Paris.cl"),
+                    valid: (productSeller === "Paris.cl") && minPrice > 0,
                     shouldStore: discountPercentage >= 50,
                     shouldNotify: discountPercentage >= this.department.minDiscount,
                 }

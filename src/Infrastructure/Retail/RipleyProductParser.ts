@@ -45,7 +45,7 @@ export class RipleyProductParser implements ProductParser {
                     minPrice: minPrice,
                     discountPercentage: discountPercentage,
                     timestamp: Date.now(),
-                    valid: !obj.isMarketplaceProduct,
+                    valid: !obj.isMarketplaceProduct && minPrice > 0,
                     shouldStore: discountPercentage >= 50,
                     shouldNotify: discountPercentage >= this.department.minDiscount,
                 }

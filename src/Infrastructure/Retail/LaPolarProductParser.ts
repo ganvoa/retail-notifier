@@ -26,8 +26,6 @@ export class LaPolarProductParser implements ProductParser {
             const imageUrl = itemData[3];
             const productBrand = cleanString(itemData[4]).trim();
             const productName = cleanString(itemData[5]).trim();
-
-            let valid = true;
             const normalPriceMatch = str.match(/normal-price[\w\W]+?data-value="([\w\W]+?)">/);
             let normalPrice = 0;
             if (null !== normalPriceMatch) {
@@ -76,7 +74,7 @@ export class LaPolarProductParser implements ProductParser {
                     productUrl: productUrl,
                     department: this.department.department,
                     timestamp: Date.now(),
-                    valid: valid,
+                    valid: minPrice > 0,
                     shouldStore: discountPercentage >= 50,
                     shouldNotify: discountPercentage >= this.department.minDiscount,
                 }

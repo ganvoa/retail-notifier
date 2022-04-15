@@ -65,9 +65,9 @@ export class FalabellaProductParser implements ProductParser {
                     productUrl: obj.url,
                     department: this.department.department,
                     timestamp: Date.now(),
-                    valid: true,
+                    valid: minPrice > 0,
                     shouldStore: discountPercentage >= 50,
-                    shouldNotify: discountPercentage >= this.department.minDiscount,
+                    shouldNotify: false,
                 }
             );
         }
