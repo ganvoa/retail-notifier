@@ -44,7 +44,7 @@ ${product.discountPercentage}% Descuento | $ ${formatCLP(product.minPrice)}
 
 ${product.productUrl}
 
-#${product.retailId} #${product.department} #oferta #descuento`;
+#${product.retailId} #${product.department} #oferta #cyberday #cyberrata`;
             await this.client.post('statuses/update', { status: message });
             await sleep(5000);
             return Promise.resolve();
