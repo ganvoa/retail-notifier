@@ -1,0 +1,16 @@
+{
+    "apps": [
+        {
+            "merge_logs": true,
+            "name": "notifier-telegram",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/notifier/cli/telegram.js"
+        },
+        {
+            "merge_logs": true,
+            "name": "notifier-twitter",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/notifier/cli/twitter.js"
+        }
+    ]
+}

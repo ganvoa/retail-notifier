@@ -1,4 +1,4 @@
 export type HttpRequest = {
-    readonly url: string;
-    readonly body?: string;
-}
+  readonly url: string;
+  readonly body?: string;
+};

@@ -1,29 +1,24 @@
 export class Paginator {
-    constructor(
-        readonly limit: number,
-        private total: number,
-        private offset: number = 0,
-    ) { }
+  constructor(readonly limit: number, private total: number, private offset: number = 0) {}
 
-    next(): boolean {
-        if (this.offset >= this.total) {
-            return false;
-        }
-
-        this.offset += this.limit;
-        return true;
+  next(): boolean {
+    if (this.offset >= this.total) {
+      return false;
     }
 
-    getOffset(): number {
-        return this.offset;
-    }
+    this.offset += this.limit;
+    return true;
+  }
 
-    getPage(): number {
-        return Math.floor(this.offset/this.limit) + 1;
-    }
+  getOffset(): number {
+    return this.offset;
+  }
 
-    getNumberOfPages(): number {
-        return Math.ceil(this.total/this.limit);
-    }
+  getPage(): number {
+    return Math.floor(this.offset / this.limit) + 1;
+  }
 
+  getNumberOfPages(): number {
+    return Math.ceil(this.total / this.limit);
+  }
 }

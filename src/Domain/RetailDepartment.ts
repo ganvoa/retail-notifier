@@ -1,8 +1,8 @@
-import { Department } from "./Department"
+import { Department } from './Department';
 
 export interface RetailDepartment {
-    department: Department,
-    minDiscount: number,
-    slug: string,
-    iterable: boolean
+  department: Department;
+  minDiscount: number;
+  slug: string;
+  iterable: boolean;
 }

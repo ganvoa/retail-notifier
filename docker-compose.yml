@@ -1,4 +1,4 @@
-version: '3.5'
+version: "3.5"
 services:
   scrapper:
     container_name: retail-scrapper
@@ -20,13 +20,13 @@ services:
     logging:
       driver: json-file
       options:
-        max-size: "10m" 
+        max-size: "10m"
         max-file: "3"
     deploy:
       resources:
-          limits:
-            cpus: 2
-            memory: 1G
+        limits:
+          cpus: 0.5
+          memory: 512m
     depends_on:
       elasticsearch:
         condition: service_healthy
@@ -50,13 +50,13 @@ services:
     logging:
       driver: json-file
       options:
-        max-size: "10m" 
+        max-size: "10m"
         max-file: "3"
     deploy:
       resources:
-          limits:
-            cpus: 2
-            memory: 3G
+        limits:
+          cpus: 1
+          memory: 512m
     healthcheck:
       test: curl -u elastic:elastic -s -f elasticsearch:9200/_cat/health >/dev/null || exit 1
       interval: 10s
@@ -73,13 +73,13 @@ services:
     logging:
       driver: json-file
       options:
-        max-size: "10m" 
+        max-size: "10m"
         max-file: "3"
     deploy:
       resources:
-          limits:
-            cpus: 2
-            memory: 2G
+        limits:
+          cpus: 1
+          memory: 512m
     restart: unless-stopped
     depends_on:
       elasticsearch:
@@ -100,13 +100,13 @@ services:
     logging:
       driver: json-file
       options:
-        max-size: "10m" 
+        max-size: "10m"
         max-file: "3"
     deploy:
       resources:
-          limits:
-            cpus: 2
-            memory: 3G
+        limits:
+          cpus: 0.5
+          memory: 512m
     healthcheck:
       test: rabbitmq-diagnostics -q ping
       interval: 10s

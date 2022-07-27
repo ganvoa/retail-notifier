@@ -1,0 +1,16 @@
+{
+    "apps": [
+        {
+            "merge_logs": true,
+            "name": "backend-store",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/backend/cli/store-products.js"
+        },
+        {
+            "merge_logs": true,
+            "name": "backend-telegram-admin",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/backend/cli/telegram-admin.js"
+        }
+    ]
+}

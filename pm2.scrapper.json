@@ -1,0 +1,53 @@
+{
+    "apps": [
+        {
+            "merge_logs": true,
+            "name": "scrapper-paris",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/scrapper/cli/paris.js",
+            "restart_delay": 360000
+        },
+        {
+            "merge_logs": true,
+            "name": "scrapper-lider",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/scrapper/cli/lider.js",
+            "restart_delay": 360000
+        },
+        {
+            "merge_logs": true,
+            "name": "scrapper-lapolar",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/scrapper/cli/lapolar.js",
+            "restart_delay": 360000
+        },
+        {
+            "merge_logs": true,
+            "name": "scrapper-ripley",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/scrapper/cli/ripley.js",
+            "restart_delay": 360000
+        },
+        {
+            "merge_logs": true,
+            "name": "scrapper-falabella",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/scrapper/cli/falabella.js",
+            "restart_delay": 360000
+        },
+        {
+            "merge_logs": true,
+            "name": "scrapper-abcdin",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/scrapper/cli/abcdin.js",
+            "restart_delay": 360000
+        },
+        {
+            "merge_logs": true,
+            "name": "scrapper-hites",
+            "log_date_format": "MM/DD/YYYY HH:mm:ss",
+            "script": "build/app/scrapper/cli/hites.js",
+            "restart_delay": 360000
+        }
+    ]
+}

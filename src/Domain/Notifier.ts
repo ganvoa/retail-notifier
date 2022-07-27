@@ -1,5 +1,5 @@
-import { Product } from "./Product";
+import { Product } from './Product';
 
 export interface Notifier {
-    notify(product: Product): Promise<void>;
-} 
+  notify(product: Product): Promise<void>;
+}

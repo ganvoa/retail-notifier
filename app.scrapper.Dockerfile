@@ -7,7 +7,7 @@ RUN npx yarn install \
 COPY src src
 COPY app app
 COPY tsconfig.json .
-COPY processes.json .
+COPY pm2.scrapper.json processes.json
 RUN tsc
 ENV TZ America/Santiago
 CMD ["pm2", "start", "--no-daemon", "processes.json"]
