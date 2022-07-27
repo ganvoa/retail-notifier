@@ -7,6 +7,7 @@ import config from '../config';
 
 const main = async () => {
   const repository = new ElasticsearchProductRepository(config.ELASTICSEARCH_INDEX, config.ELASTICSEARCH_HOST);
+  await repository.setup();
   const brokerDirect = new RabbitDirectBroker({
     fqdn: config.RABBIT_FQDN,
     exchangeName: config.RABBIT_EXCHANGE_NAME

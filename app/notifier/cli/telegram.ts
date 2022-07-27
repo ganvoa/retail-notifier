@@ -6,10 +6,7 @@ import { TelegramNotifier } from '../../../src/Infrastructure/TelegramNotifier';
 import config from '../config';
 
 const main = async () => {
-  const broker = new RabbitFanoutBroker({
-    fqdn: config.RABBIT_FQDN,
-    exchangeName: config.RABBIT_EXCHANGE_NAME
-  });
+  const broker = new RabbitFanoutBroker({ fqdn: config.RABBIT_FQDN, exchangeName: config.RABBIT_EXCHANGE_NAME });
   await broker.setup();
   const httpClient = new FetchHttpClient();
   const notifier = new TelegramNotifier(config.TELEGRAM_BOT_TOKEN, config.TELEGRAM_CHANNEL_ID, httpClient);

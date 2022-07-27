@@ -9,7 +9,18 @@ export class ElasticsearchProductRepository implements ProductRepository {
   constructor(private index: string, host: string) {
     this.client = new Client({ node: host });
   }
+  async setup(): Promise<void> {
+    const exists = await this.client.indices.exists({ index: this.index });
+    if (exists) {
+      return Promise.resolve();
+    }
 
+    await this.client.indices.create({
+      index: this.index
+    });
+
+    return Promise.resolve();
+  }
   async save(product: Product): Promise<void> {
     await this.client.index({
       index: this.index,

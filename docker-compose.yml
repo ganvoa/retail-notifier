@@ -64,8 +64,6 @@ services:
       - TELEGRAM_BOT_TOKEN
       - TELEGRAM_CHANNEL_ID
       - TELEGRAM_ADMIN_CHANNEL_ID
-      - ELASTICSEARCH_INDEX
-      - ELASTICSEARCH_HOST
       - RABBIT_EXCHANGE_NAME
       - RABBIT_FQDN
     restart: unless-stopped
