@@ -1,7 +1,7 @@
+import { Client } from '@elastic/elasticsearch';
 import { Product } from '../Domain/Product';
 import { ProductRepository } from '../Domain/ProductRepository';
 import { Retail } from '../Domain/Retail';
-import { Client } from '@elastic/elasticsearch';
 
 export class ElasticsearchProductRepository implements ProductRepository {
   private client: Client;

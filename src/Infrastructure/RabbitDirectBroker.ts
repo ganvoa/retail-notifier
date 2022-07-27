@@ -1,6 +1,6 @@
+import rabbit from 'amqplib';
 import { DirectBroker } from '../Domain/Broker';
 import { Event } from '../Domain/Event';
-import rabbit from 'amqplib';
 
 export enum RabbitExchangeType {
   Direct = 'direct',

@@ -1,8 +1,8 @@
+import axios from 'axios';
 import { HttpClient } from '../Domain/HttpClient';
 import { HttpRequest } from '../Domain/HttpRequest';
 import { HttpResponse } from '../Domain/HttpResponse';
 import { sleep } from './Helper';
-import axios from 'axios';
 
 export class FetchHttpClient implements HttpClient {
   async get(req: HttpRequest): Promise<HttpResponse> {

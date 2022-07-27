@@ -1,7 +1,7 @@
+import Twitter from 'twitter-lite';
 import { Notifier } from '../Domain/Notifier';
 import { Product } from '../Domain/Product';
 import { formatCLP, sleep } from './Helper';
-import Twitter from 'twitter-lite';
 
 type TwitterConfig = {
   consumerKey: string;
