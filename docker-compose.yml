@@ -157,8 +157,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 1
-          memory: 512m
+          cpus: 0.5
+          memory: 256m
     healthcheck:
       test: rabbitmq-diagnostics -q ping
       interval: 10s
