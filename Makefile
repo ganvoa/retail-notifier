@@ -1,18 +1,34 @@
-stop: stop-scrapper stop-others
+up: up-infra up-services
+stop: stop-services stop-infra
 
-stop-others:
+stop-infra:
 	@docker-compose stop rabbitmq elasticsearch
 
-stop-scrapper:
-	@docker-compose stop scrapper
+stop-services:
+	@docker-compose stop scrapper notifier backend
 
-start: start-others start-scrapper
+up-services: up-backend up-notifier up-scrapper
 
-start-scrapper:
+up-backend:
+	@docker-compose build && docker-compose up -d backend
+
+up-notifier:
+	@docker-compose build && docker-compose up -d notifier
+
+up-scrapper:
 	@docker-compose build && docker-compose up -d scrapper
 
-start-others:
+up-infra:
 	@docker-compose up -d rabbitmq elasticsearch
 
-monitor:
+up-kibana:
+	@docker-compose up -d kibana
+
+monitor-scrapper:
 	@docker-compose exec scrapper pm2 monit
+
+monitor-notifier:
+	@docker-compose exec notifier pm2 monit
+
+monitor-backend:
+	@docker-compose exec backend pm2 monit

@@ -1,10 +1,61 @@
-version: "3.5"
+version: '3.5'
 services:
   scrapper:
-    container_name: retail-scrapper
+    container_name: service-scrapper
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: app.scrapper.Dockerfile
+    environment:
+      - RABBIT_EXCHANGE_NAME
+      - RABBIT_FQDN
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 512m
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+  backend:
+    container_name: service-backend
+    build:
+      context: .
+      dockerfile: app.backend.Dockerfile
+    environment:
+      - TELEGRAM_BOT_TOKEN
+      - ELASTICSEARCH_INDEX
+      - ELASTICSEARCH_HOST
+      - RABBIT_EXCHANGE_NAME
+      - RABBIT_FQDN
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+    deploy:
+      resources:
+        limits:
+          cpus: 0.5
+          memory: 100m
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+  notifier:
+    container_name: service-notifier
+    build:
+      context: .
+      dockerfile: app.notifier.Dockerfile
     environment:
       - TWITTER_API_KEY
       - TWITTER_API_KEY_SECRET
@@ -12,28 +63,29 @@ services:
       - TWITTER_ACCESS_TOKEN_SECRET
       - TELEGRAM_BOT_TOKEN
       - TELEGRAM_CHANNEL_ID
+      - TELEGRAM_ADMIN_CHANNEL_ID
       - ELASTICSEARCH_INDEX
-      - ELASTICSEARCH_HOST=http://elasticsearch:9200
+      - ELASTICSEARCH_HOST
       - RABBIT_EXCHANGE_NAME
-      - RABBIT_FQDN=amqp://retail:retail@rabbitmq:5672
+      - RABBIT_FQDN
     restart: unless-stopped
     logging:
       driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
+        max-size: '10m'
+        max-file: '3'
     deploy:
       resources:
         limits:
           cpus: 0.5
-          memory: 512m
+          memory: 100m
     depends_on:
       elasticsearch:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
   elasticsearch:
-    container_name: retail-elasticsearch
+    container_name: infra-elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
     environment:
       - xpack.security.enabled=false
@@ -50,8 +102,8 @@ services:
     logging:
       driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
+        max-size: '10m'
+        max-file: '3'
     deploy:
       resources:
         limits:
@@ -63,7 +115,7 @@ services:
       timeout: 5s
       retries: 5
   kibana:
-    container_name: retail-kibana
+    container_name: infra-kibana
     image: docker.elastic.co/kibana/kibana:7.15.0
     environment:
       SERVER_NAME: localhost
@@ -73,8 +125,8 @@ services:
     logging:
       driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
+        max-size: '10m'
+        max-file: '3'
     deploy:
       resources:
         limits:
@@ -85,7 +137,7 @@ services:
       elasticsearch:
         condition: service_healthy
   rabbitmq:
-    container_name: retail-rabbitmq
+    container_name: infra-rabbitmq
     image: rabbitmq:3-management-alpine
     volumes:
       - ./docker/rabbitmq:/var/lib/rabbitmq
@@ -100,12 +152,12 @@ services:
     logging:
       driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
+        max-size: '10m'
+        max-file: '3'
     deploy:
       resources:
         limits:
-          cpus: 0.5
+          cpus: 1
           memory: 512m
     healthcheck:
       test: rabbitmq-diagnostics -q ping

@@ -6,11 +6,11 @@ import { RabbitFanoutBroker } from '../../../src/Infrastructure/RabbitFanoutBrok
 import config from '../config';
 
 const main = async () => {
+  const repository = new ElasticsearchProductRepository(config.ELASTICSEARCH_INDEX, config.ELASTICSEARCH_HOST);
   const brokerDirect = new RabbitDirectBroker({
     fqdn: config.RABBIT_FQDN,
     exchangeName: config.RABBIT_EXCHANGE_NAME
   });
-  const repository = new ElasticsearchProductRepository(config.ELASTICSEARCH_INDEX, config.ELASTICSEARCH_HOST);
   const brokerFanout = new RabbitFanoutBroker({
     fqdn: config.RABBIT_FQDN,
     exchangeName: config.RABBIT_EXCHANGE_NAME

@@ -1,13 +1,12 @@
 {
   "name": "retail-scrapping",
   "version": "1.0.0",
-  "main": "build/app/main.js",
   "license": "MIT",
   "scripts": {
     "watch": "npx tsc --watch",
-    "start": "node build/app/cli.js",
+    "build": "tsc",
     "test": "jest",
-    "format": "prettier --config .prettierrc '{src,app}/**/*.ts' --write"
+    "format": "prettier --config .prettierrc '{src,app,tests}/**/*.ts' --write"
   },
   "devDependencies": {
     "@types/amqplib": "^0.8.2",
